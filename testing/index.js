@@ -1,21 +1,18 @@
 (() => {
-  const { commands } = window.vendetta;
-  let unregister;
-
-  return {
+  const plugin = {
     onLoad: () => {
-      unregister = commands.registerCommand({
+      const { commands } = window.vendetta || window.revenge;
+      window.testCmd = commands.registerCommand({
         name: "testing",
         description: "Prints a greeting message",
         options: [],
-        execute: () => {
-          return { content: "hi bufferclick" };
-        }
+        execute: () => ({ content: "hi bufferclick" })
       });
     },
     onUnload: () => {
-      if (unregister) unregister();
+      if (window.testCmd) window.testCmd();
     }
   };
+  if (typeof module !== "undefined") module.exports = plugin;
+  return plugin;
 })();
- 
