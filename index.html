@@ -4,66 +4,129 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>III — Infrequent, Insufficient or Inadequate?</title>
+  <link rel="icon" type="image/png" href="https://freesvg.org/img/Folder-1.png" />
   <style>
     :root {
-      --bg: #0d0f13;
-      --surface: #13161d;
-      --surface2: #1a1e28;
-      --surface3: #212733;
-      --border: #272d3d;
-      --text: #e2e8f0;
-      --muted: #7a8699;
-      --accent: #4f8ef7;
-      --accent-dim: #1e3560;
-      --green: #3dd68c;
-      --green-dim: #143327;
-      --red: #f05252;
-      --red-dim: #3b1515;
-      --yellow: #f5a623;
-      --radius: 14px;
+      --bg: #09090b;
+      --surface: #111113;
+      --surface2: #18181b;
+      --surface3: #1f1f23;
+      --surface4: #27272a;
+      --border: #27272a;
+      --border2: #3f3f46;
+      --text: #fafafa;
+      --text2: #e4e4e7;
+      --muted: #71717a;
+      --muted2: #52525b;
+      --accent: #ffffff;
+      --accent-dim: rgba(255,255,255,0.06);
+      --accent-dim2: rgba(255,255,255,0.1);
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.1);
+      --red: #ef4444;
+      --red-dim: rgba(239,68,68,0.08);
+      --yellow: #eab308;
+      --blue: #3b82f6;
+      --purple: #a855f7;
+      --cyan: #06b6d4;
+      --orange: #f97316;
+      --radius: 12px;
       --radius-sm: 8px;
+      --radius-xs: 6px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.4);
+      --shadow-lg: 0 4px 20px rgba(0,0,0,0.5);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       padding: 16px;
-      padding-bottom: 80px;
+      padding-bottom: 100px;
+      -webkit-font-smoothing: antialiased;
     }
+
+    /* ── SVG Icons ── */
+    .icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .icon-lg { width: 22px; height: 22px; }
+    .icon-xl { width: 28px; height: 28px; }
+    .icon-sm { width: 14px; height: 14px; }
 
     /* ── Header ── */
     .header {
-      padding: 20px 0 24px;
+      padding: 24px 0 28px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .header-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+    }
+
+    .header-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: invert(1);
     }
 
     .header h1 {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.4px;
+      color: var(--text);
+      line-height: 1.2;
     }
 
-    .header p {
-      margin-top: 4px;
+    .header-sub {
       font-size: 13px;
       color: var(--muted);
+      margin-top: 4px;
     }
 
-    .badge {
+    .header-badge {
       display: inline-block;
-      background: var(--accent-dim);
-      color: var(--accent);
-      font-size: 11px;
+      background: var(--surface3);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 10px;
       font-weight: 700;
-      padding: 3px 9px;
+      padding: 2px 8px;
       border-radius: 999px;
-      letter-spacing: 0.5px;
-      margin-top: 8px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-top: 10px;
     }
 
     /* ── Cards ── */
@@ -71,43 +134,56 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
     }
 
     .card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.8px;
       color: var(--muted);
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
+
+    .card-title .icon { opacity: 0.5; }
 
     /* ── File Picker ── */
     .file-picker-wrap {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
+    }
+
+    @media (max-width: 400px) {
+      .file-picker-wrap { grid-template-columns: 1fr; }
     }
 
     .file-picker-btn {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       background: var(--surface2);
-      border: 2px dashed var(--border);
+      border: 1px dashed var(--border2);
       border-radius: var(--radius);
-      padding: 22px 16px;
+      padding: 24px 16px;
       cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
+      transition: all 0.2s;
       position: relative;
+      text-align: center;
     }
 
     .file-picker-btn:hover,
-    .file-picker-btn.active {
+    .file-picker-btn:focus-within {
       border-color: var(--accent);
+      border-style: solid;
       background: var(--accent-dim);
     }
 
@@ -120,20 +196,33 @@
       height: 100%;
     }
 
-    .file-picker-btn .icon { font-size: 24px; }
-    .file-picker-btn .label { font-size: 15px; font-weight: 600; color: var(--accent); }
-    .file-picker-btn .sublabel { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .file-picker-btn .text-block { display: flex; flex-direction: column; }
+    .file-picker-btn .picker-icon {
+      width: 32px;
+      height: 32px;
+      opacity: 0.7;
+    }
+
+    .file-picker-btn .picker-icon img {
+      width: 100%;
+      height: 100%;
+      filter: invert(1);
+    }
+
+    .file-picker-btn .picker-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text2);
+    }
+
+    .file-picker-btn .picker-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: -4px;
+    }
 
     /* ── File List ── */
-    .file-list-wrap {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      max-height: 200px;
-      overflow-y: auto;
-      padding: 10px;
-      margin-top: 10px;
+    .file-list-section {
+      margin-top: 14px;
       display: none;
     }
 
@@ -145,62 +234,102 @@
     }
 
     .file-list-header span {
-      font-size: 13px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .file-list-clear {
+      font-size: 11px;
+      background: var(--red-dim);
+      color: var(--red);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: var(--radius-xs);
+      padding: 4px 10px;
+      cursor: pointer;
       font-weight: 600;
     }
 
-    .file-list-header button {
-      font-size: 12px;
-      background: var(--red-dim);
-      color: var(--red);
-      border: 1px solid var(--red);
-      border-radius: 6px;
-      padding: 4px 10px;
-      cursor: pointer;
+    .file-list-clear:hover {
+      background: rgba(239,68,68,0.15);
     }
 
-    .file-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 4px;
-      border-bottom: 1px solid var(--border);
-      font-size: 13px;
-      gap: 8px;
-    }
-
-    .file-item:last-child { border-bottom: none; }
-    .file-item .fname { color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
-    .file-item .fsize { color: var(--muted); font-size: 11px; white-space: nowrap; }
-    .file-item .fstatus { font-size: 11px; white-space: nowrap; }
-    .fstatus.ok { color: var(--green); }
-    .fstatus.skip { color: var(--red); }
-
-    /* ── Search / Filter ── */
-    .search-wrap {
-      margin-top: 10px;
-    }
-
-    .search-wrap input {
+    .search-bar {
       width: 100%;
-      padding: 10px 14px;
+      padding: 9px 12px 9px 34px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
       background: var(--surface2);
       color: var(--text);
-      font-size: 14px;
+      font-size: 13px;
       outline: none;
+      margin-bottom: 8px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 10px center;
     }
 
-    .search-wrap input:focus {
-      border-color: var(--accent);
+    .search-bar:focus { border-color: var(--text); }
+
+    .file-list-inner {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .file-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      gap: 10px;
+    }
+
+    .file-item:last-child { border-bottom: none; }
+
+    .file-item .fname {
+      color: var(--text2);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+      font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+    }
+
+    .file-item .fsize {
+      color: var(--muted2);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .file-item .fstatus {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .fstatus.ok {
+      color: var(--green);
+      background: var(--green-dim);
+    }
+
+    .fstatus.skip {
+      color: var(--red);
+      background: var(--red-dim);
     }
 
     /* ── Options ── */
     .options-grid {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
     }
 
     .option-row {
@@ -212,31 +341,35 @@
     .option-row label {
       font-size: 13px;
       font-weight: 600;
+      color: var(--text2);
     }
 
     .option-row .hint {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--muted);
-      margin-top: 2px;
       line-height: 1.4;
+      margin-top: 2px;
     }
 
     select, input[type="number"], input[type="text"] {
       width: 100%;
-      padding: 11px 14px;
+      padding: 10px 12px;
       border-radius: var(--radius-sm);
       border: 1px solid var(--border);
       background: var(--surface2);
       color: var(--text);
-      font-size: 14px;
+      font-size: 13px;
       appearance: none;
       -webkit-appearance: none;
       outline: none;
+      transition: border-color 0.15s;
     }
 
-    select:focus, input:focus { border-color: var(--accent); }
+    select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 34px; }
 
-    /* ── Extension tags ── */
+    select:focus, input:focus { border-color: var(--text); }
+
+    /* ── Tags ── */
     .tag-input-wrap {
       display: flex;
       gap: 8px;
@@ -245,21 +378,29 @@
     .tag-input-wrap input { flex: 1; }
 
     .tag-add-btn {
-      padding: 11px 16px;
+      padding: 10px 16px;
       border-radius: var(--radius-sm);
       background: var(--surface3);
       border: 1px solid var(--border);
       color: var(--text);
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .tag-add-btn:hover {
+      background: var(--surface4);
+      border-color: var(--text);
     }
 
     .tag-list {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 8px;
+      margin-top: 10px;
+      min-height: 32px;
     }
 
     .tag {
@@ -268,21 +409,31 @@
       gap: 5px;
       background: var(--surface3);
       border: 1px solid var(--border);
-      color: var(--text);
+      color: var(--text2);
       border-radius: 999px;
       padding: 4px 10px;
       font-size: 12px;
+      font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
     }
 
     .tag .remove {
       cursor: pointer;
-      color: var(--red);
+      color: var(--muted);
       font-weight: 700;
       font-size: 14px;
       line-height: 1;
+      transition: color 0.15s;
     }
 
-    /* ── Preset buttons ── */
+    .tag .remove:hover { color: var(--red); }
+
+    .empty-state {
+      color: var(--muted);
+      font-size: 12px;
+      padding: 6px 0;
+    }
+
+    /* ── Presets ── */
     .preset-row {
       display: flex;
       flex-wrap: wrap;
@@ -291,65 +442,96 @@
     }
 
     .preset-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       padding: 6px 12px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       cursor: pointer;
       border: 1px solid var(--border);
-      background: var(--surface3);
-      color: var(--text);
-      transition: background 0.15s;
+      background: var(--surface2);
+      color: var(--muted);
+      transition: all 0.15s;
+      letter-spacing: 0.3px;
     }
 
     .preset-btn:hover {
       background: var(--accent-dim);
-      border-color: var(--accent);
-      color: var(--accent);
+      border-color: var(--text);
+      color: var(--text);
     }
 
     .preset-btn.active {
-      background: var(--accent-dim);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--accent-dim2);
+      border-color: var(--text);
+      color: var(--text);
     }
 
     .preset-btn.danger {
-      border-color: var(--red);
+      border-color: rgba(239,68,68,0.3);
       color: var(--red);
     }
 
     .preset-btn.danger:hover {
       background: var(--red-dim);
+      border-color: var(--red);
     }
 
     /* ── Buttons ── */
     .btn {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 8px;
       width: 100%;
-      padding: 14px;
+      padding: 13px 16px;
       border-radius: var(--radius);
       border: none;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      transition: opacity 0.15s;
+      transition: all 0.15s;
+      letter-spacing: -0.2px;
     }
 
-    .btn:active { opacity: 0.7; }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .btn-primary { background: var(--accent); color: #06111f; }
-    .btn-green { background: var(--green); color: #061a10; }
-    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-    .btn-sm { padding: 10px 14px; font-size: 13px; border-radius: var(--radius-sm); }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover { opacity: 0.9; }
+
+    .btn-green {
+      background: var(--green);
+      color: #052e16;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text2);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text);
+      background: var(--accent-dim);
+    }
+
+    .btn-sm {
+      padding: 9px 14px;
+      font-size: 12px;
+      border-radius: var(--radius-sm);
+    }
 
     .btn-row {
       display: flex;
       gap: 8px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .btn-row .btn { flex: 1; }
@@ -359,82 +541,130 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .stat-box {
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 10px;
+      padding: 12px 8px;
       text-align: center;
     }
 
-    .stat-box .val { font-size: 20px; font-weight: 700; }
-    .stat-box .key { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .stat-box .val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-box .key {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+    }
 
     /* ── Batch cards ── */
     .batch-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
+      padding: 18px;
       margin-bottom: 14px;
+      box-shadow: var(--shadow);
     }
 
     .batch-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
-    .batch-title { font-size: 15px; font-weight: 700; }
-    .batch-meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
-
-    textarea {
-      width: 100%;
-      min-height: 220px;
-      resize: vertical;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: #090b0f;
-      color: var(--text);
-      padding: 12px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 12px;
-      line-height: 1.5;
-      margin-top: 10px;
-      outline: none;
-    }
-
-    textarea:focus { border-color: var(--accent); }
-
-    /* ── Toast ── */
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: var(--green);
-      color: #061a10;
-      padding: 12px 20px;
-      border-radius: 999px;
+    .batch-title {
       font-size: 14px;
       font-weight: 700;
-      transition: transform 0.25s ease;
-      z-index: 999;
-      white-space: nowrap;
-      pointer-events: none;
+      color: var(--text);
     }
 
-    .toast.show { transform: translateX(-50%) translateY(0); }
+    .batch-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+      font-variant-numeric: tabular-nums;
+    }
 
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 16px 0;
+    .batch-number {
+      background: var(--surface3);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* ── Syntax-highlighted code view ── */
+    .code-view {
+      position: relative;
+      margin-top: 10px;
+    }
+
+    .code-view pre {
+      width: 100%;
+      min-height: 220px;
+      max-height: 450px;
+      overflow: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: #050507;
+      padding: 14px;
+      font-family: 'SF Mono', 'Cascadia Code', 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--text2);
+      white-space: pre-wrap;
+      word-break: break-word;
+      tab-size: 2;
+      -moz-tab-size: 2;
+    }
+
+    .code-view .line-file-label {
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .code-view .line-separator {
+      color: var(--muted2);
+    }
+
+    /* Syntax Colors */
+    .syn-keyword  { color: var(--purple); }
+    .syn-string   { color: var(--green); }
+    .syn-comment  { color: var(--muted); font-style: italic; }
+    .syn-number   { color: var(--orange); }
+    .syn-func     { color: var(--blue); }
+    .syn-tag      { color: var(--red); }
+    .syn-attr     { color: var(--yellow); }
+    .syn-bracket  { color: var(--muted); }
+    .syn-operator { color: var(--red); }
+    .syn-type     { color: var(--cyan); }
+    .syn-skipped  { color: var(--muted); font-style: italic; }
+
+    /* Hidden textarea for copying */
+    .hidden-textarea {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
     }
 
     /* ── Toggle ── */
@@ -442,15 +672,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 6px 0;
+      padding: 8px 0;
+      gap: 12px;
     }
 
-    .toggle-wrap .toggle-label { font-size: 13px; font-weight: 600; }
-    .toggle-wrap .toggle-sub { font-size: 12px; color: var(--muted); }
+    .toggle-text { flex: 1; }
+    .toggle-text .toggle-label { font-size: 13px; font-weight: 600; color: var(--text2); }
+    .toggle-text .toggle-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
     .toggle {
       position: relative;
-      width: 44px;
+      width: 42px;
       height: 24px;
       flex-shrink: 0;
     }
@@ -463,142 +695,189 @@
       background: var(--surface3);
       border-radius: 999px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.2s;
       border: 1px solid var(--border);
     }
 
     .toggle-slider::before {
       content: '';
       position: absolute;
-      width: 18px;
-      height: 18px;
-      left: 2px;
+      width: 16px;
+      height: 16px;
+      left: 3px;
       top: 50%;
       transform: translateY(-50%);
       background: var(--muted);
       border-radius: 50%;
-      transition: left 0.2s, background 0.2s;
+      transition: all 0.2s;
     }
 
     .toggle input:checked + .toggle-slider {
-      background: var(--accent-dim);
-      border-color: var(--accent);
+      background: rgba(255,255,255,0.1);
+      border-color: var(--text);
     }
 
     .toggle input:checked + .toggle-slider::before {
-      left: 22px;
-      background: var(--accent);
+      left: 21px;
+      background: var(--text);
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 16px 0;
     }
 
     .section-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      margin: 24px 0 12px;
+      margin: 28px 0 14px;
     }
 
     .hidden { display: none !important; }
 
-    .empty-state {
-      text-align: center;
-      color: var(--muted);
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--text);
+      color: var(--bg);
+      padding: 10px 20px;
+      border-radius: 999px;
       font-size: 13px;
-      padding: 12px;
+      font-weight: 700;
+      transition: transform 0.25s ease;
+      z-index: 999;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: var(--shadow-lg);
     }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--surface4); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted2); }
   </style>
 </head>
 <body>
 
   <!-- Header -->
   <div class="header">
-    <div class="badge">III</div>
-    <h1>Infrequent, Insufficient or Inadequate?</h1>
-    <p>Made by BufferClick &nbsp;·&nbsp; Everything runs locally in your browser.</p>
+    <div class="header-top">
+      <div class="header-logo">
+        <img src="https://freesvg.org/img/Folder-1.png" alt="III" />
+      </div>
+      <div>
+        <h1>Infrequent, Insufficient or Inadequate?</h1>
+        <div class="header-sub">Made by BufferClick</div>
+      </div>
+    </div>
+    <span class="header-badge">All processing runs locally</span>
   </div>
 
   <!-- File Picker -->
   <div class="card">
-    <div class="card-title">📁 Select Files</div>
+    <div class="card-title">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      </span>
+      Select Files
+    </div>
+
     <div class="file-picker-wrap">
       <label class="file-picker-btn">
         <input type="file" id="folderInput" webkitdirectory multiple />
-        <span class="icon">📂</span>
-        <div class="text-block">
-          <span class="label">Pick a Folder</span>
-          <span class="sublabel">Reads all files recursively</span>
+        <div class="picker-icon">
+          <img src="https://freesvg.org/img/Folder-1.png" alt="" />
         </div>
+        <span class="picker-label">Pick Folder</span>
+        <span class="picker-sub">All files recursively</span>
       </label>
       <label class="file-picker-btn">
         <input type="file" id="filesInput" multiple />
-        <span class="icon">📄</span>
-        <div class="text-block">
-          <span class="label">Pick Individual Files</span>
-          <span class="sublabel">Select one or more files</span>
+        <div class="picker-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%;opacity:0.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/></svg>
         </div>
+        <span class="picker-label">Pick Files</span>
+        <span class="picker-sub">Select individually</span>
       </label>
     </div>
 
-    <div class="search-wrap" id="searchWrap" style="display:none;">
-      <input type="text" id="searchInput" placeholder="🔍 Search files…" />
-    </div>
-
-    <div class="file-list-wrap" id="fileListWrap">
+    <div class="file-list-section" id="fileListSection">
       <div class="file-list-header">
         <span id="fileCountLabel">0 files</span>
-        <button id="clearFilesBtn">Clear all</button>
+        <button class="file-list-clear" id="clearFilesBtn">Clear all</button>
       </div>
-      <div id="fileListInner"></div>
+      <input type="text" class="search-bar" id="searchInput" placeholder="Search files..." />
+      <div class="file-list-inner" id="fileListInner"></div>
     </div>
   </div>
 
   <!-- Exclusion -->
   <div class="card">
-    <div class="card-title">🚫 Exclude Extensions</div>
+    <div class="card-title">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg>
+      </span>
+      Exclude Extensions
+    </div>
 
     <div class="option-row">
       <label>Add extensions to exclude</label>
       <div class="tag-input-wrap">
-        <input type="text" id="extInput" placeholder=".png, .zip, .exe …" />
+        <input type="text" id="extInput" placeholder=".png, .zip, .exe" />
         <button class="tag-add-btn" id="extAddBtn">Add</button>
       </div>
-      <div class="hint">Type extensions separated by commas. Press Enter or click Add.</div>
+      <div class="hint">Comma-separated. Press Enter or click Add.</div>
     </div>
 
     <div class="tag-list" id="tagList">
-      <div class="empty-state">No exclusions yet — all file types will be included.</div>
+      <div class="empty-state">No exclusions — all file types will be included.</div>
     </div>
 
     <hr class="divider" />
 
     <div class="option-row">
       <label>Quick Presets</label>
-      <div class="hint">Click a preset to add those extensions. Click again to remove them.</div>
+      <div class="hint">Click to toggle. Active presets are highlighted.</div>
     </div>
     <div class="preset-row">
-      <button class="preset-btn" data-preset="images">🖼 Images</button>
-      <button class="preset-btn" data-preset="videos">🎬 Videos</button>
-      <button class="preset-btn" data-preset="audio">🎵 Audio</button>
-      <button class="preset-btn" data-preset="archives">📦 Archives</button>
-      <button class="preset-btn" data-preset="binaries">⚙️ Binaries</button>
-      <button class="preset-btn" data-preset="docs">📝 Docs</button>
-      <button class="preset-btn" data-preset="fonts">🔤 Fonts</button>
-      <button class="preset-btn danger" data-preset="clear">🗑 Clear All</button>
+      <button class="preset-btn" data-preset="images">Images</button>
+      <button class="preset-btn" data-preset="videos">Videos</button>
+      <button class="preset-btn" data-preset="audio">Audio</button>
+      <button class="preset-btn" data-preset="archives">Archives</button>
+      <button class="preset-btn" data-preset="binaries">Binaries</button>
+      <button class="preset-btn" data-preset="docs">Docs</button>
+      <button class="preset-btn" data-preset="fonts">Fonts</button>
+      <button class="preset-btn danger" data-preset="clear">Clear All</button>
     </div>
   </div>
 
   <!-- Options -->
   <div class="card">
-    <div class="card-title">⚙️ Options</div>
+    <div class="card-title">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </span>
+      Options
+    </div>
+
     <div class="options-grid">
 
       <div class="option-row">
         <label>Label Style</label>
         <select id="labelMode">
-          <option value="numbered">file.1, file.2, file.3 …</option>
-          <option value="filename">filename.ext:</option>
-          <option value="both">file.1 — filename.ext:</option>
+          <option value="numbered">file.1, file.2, file.3 ...</option>
+          <option value="filename">filename.ext</option>
+          <option value="both">file.1 — filename.ext</option>
         </select>
       </div>
 
@@ -607,22 +886,22 @@
         <select id="splitMode">
           <option value="chars">Auto — by max characters</option>
           <option value="count">Manual — number of batches</option>
-          <option value="none">No split</option>
+          <option value="none">No split (single batch)</option>
         </select>
       </div>
 
       <div class="option-row" id="splitValueRow">
         <label id="splitValueLabel">Max characters per batch</label>
         <input type="number" id="splitValue" value="50000" min="1" />
-        <div class="hint" id="splitHint">Files will be grouped until the character limit is reached.</div>
+        <div class="hint" id="splitHint">Files grouped until character limit is reached.</div>
       </div>
 
       <hr class="divider" />
 
       <div class="toggle-wrap">
-        <div>
+        <div class="toggle-text">
           <div class="toggle-label">Skip binary files</div>
-          <div class="toggle-sub">Auto-detect and skip unreadable binary files</div>
+          <div class="toggle-sub">Auto-detect and skip unreadable binary content</div>
         </div>
         <label class="toggle">
           <input type="checkbox" id="skipBinary" checked />
@@ -631,9 +910,9 @@
       </div>
 
       <div class="toggle-wrap">
-        <div>
+        <div class="toggle-text">
           <div class="toggle-label">Include placeholders for skipped</div>
-          <div class="toggle-sub">Add [Skipped: filename] in the output</div>
+          <div class="toggle-sub">Add [Skipped: filename] entries in output</div>
         </div>
         <label class="toggle">
           <input type="checkbox" id="includePlaceholder" />
@@ -642,9 +921,9 @@
       </div>
 
       <div class="toggle-wrap">
-        <div>
-          <div class="toggle-label">Show preview textarea</div>
-          <div class="toggle-sub">Show batch content in a textarea below each batch</div>
+        <div class="toggle-text">
+          <div class="toggle-label">Show code preview</div>
+          <div class="toggle-sub">Display syntax-highlighted preview for each batch</div>
         </div>
         <label class="toggle">
           <input type="checkbox" id="showPreview" checked />
@@ -656,7 +935,12 @@
   </div>
 
   <!-- Build -->
-  <button class="btn btn-primary" id="buildBtn">⚡ Build Batches</button>
+  <button class="btn btn-primary" id="buildBtn">
+    <span class="icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    </span>
+    Build Batches
+  </button>
 
   <!-- Output -->
   <div id="outputSection" class="hidden">
@@ -677,14 +961,24 @@
       </div>
     </div>
 
-    <button class="btn btn-green" id="copyAllBtn">📋 Copy All Merged</button>
-    <button class="btn btn-outline" id="downloadAllBtn" style="margin-top:8px;">💾 Download All as .txt</button>
+    <button class="btn btn-primary" id="copyAllBtn">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+      </span>
+      Copy All Merged
+    </button>
+    <button class="btn btn-outline" id="downloadAllBtn" style="margin-top:8px;">
+      <span class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+      </span>
+      Download All as .txt
+    </button>
 
     <div id="batchList"></div>
   </div>
 
   <!-- Toast -->
-  <div class="toast" id="toast">Copied!</div>
+  <div class="toast" id="toast">Copied to clipboard</div>
 
 <script>
   // ── Presets ──
@@ -705,34 +999,33 @@
   const activePresets = new Set();
 
   // ── Elements ──
-  const folderInput          = document.getElementById('folderInput');
-  const filesInput           = document.getElementById('filesInput');
-  const fileListWrap         = document.getElementById('fileListWrap');
-  const fileListInner        = document.getElementById('fileListInner');
-  const fileCountLabel       = document.getElementById('fileCountLabel');
-  const clearFilesBtn        = document.getElementById('clearFilesBtn');
-  const searchWrap           = document.getElementById('searchWrap');
-  const searchInput          = document.getElementById('searchInput');
-  const labelModeEl          = document.getElementById('labelMode');
-  const splitModeEl          = document.getElementById('splitMode');
-  const splitValueEl         = document.getElementById('splitValue');
-  const splitValueRow        = document.getElementById('splitValueRow');
-  const splitValueLabel      = document.getElementById('splitValueLabel');
-  const splitHintEl          = document.getElementById('splitHint');
-  const extInput             = document.getElementById('extInput');
-  const extAddBtn            = document.getElementById('extAddBtn');
-  const tagList              = document.getElementById('tagList');
-  const skipBinaryEl         = document.getElementById('skipBinary');
-  const showPreviewEl        = document.getElementById('showPreview');
+  const folderInput     = document.getElementById('folderInput');
+  const filesInput      = document.getElementById('filesInput');
+  const fileListSection = document.getElementById('fileListSection');
+  const fileListInner   = document.getElementById('fileListInner');
+  const fileCountLabel  = document.getElementById('fileCountLabel');
+  const clearFilesBtn   = document.getElementById('clearFilesBtn');
+  const searchInput     = document.getElementById('searchInput');
+  const labelModeEl     = document.getElementById('labelMode');
+  const splitModeEl     = document.getElementById('splitMode');
+  const splitValueEl    = document.getElementById('splitValue');
+  const splitValueRow   = document.getElementById('splitValueRow');
+  const splitValueLabel = document.getElementById('splitValueLabel');
+  const splitHintEl     = document.getElementById('splitHint');
+  const extInput        = document.getElementById('extInput');
+  const extAddBtn       = document.getElementById('extAddBtn');
+  const tagListEl       = document.getElementById('tagList');
+  const skipBinaryEl    = document.getElementById('skipBinary');
+  const showPreviewEl   = document.getElementById('showPreview');
   const includePlaceholderEl = document.getElementById('includePlaceholder');
-  const buildBtn             = document.getElementById('buildBtn');
-  const outputSection        = document.getElementById('outputSection');
-  const copyAllBtn           = document.getElementById('copyAllBtn');
-  const downloadAllBtn       = document.getElementById('downloadAllBtn');
-  const batchList            = document.getElementById('batchList');
-  const toast                = document.getElementById('toast');
+  const buildBtn        = document.getElementById('buildBtn');
+  const outputSection   = document.getElementById('outputSection');
+  const copyAllBtn      = document.getElementById('copyAllBtn');
+  const downloadAllBtn  = document.getElementById('downloadAllBtn');
+  const batchListEl     = document.getElementById('batchList');
+  const toastEl         = document.getElementById('toast');
 
-  // ── File inputs ──
+  // ── File Inputs ──
   folderInput.addEventListener('change', () => mergeFiles(folderInput.files));
   filesInput.addEventListener('change', () => mergeFiles(filesInput.files));
 
@@ -740,10 +1033,7 @@
     const existing = new Set(allFiles.map(f => getKey(f)));
     for (const f of Array.from(newFiles)) {
       const key = getKey(f);
-      if (!existing.has(key)) {
-        allFiles.push(f);
-        existing.add(key);
-      }
+      if (!existing.has(key)) { allFiles.push(f); existing.add(key); }
     }
     allFiles.sort((a, b) => getKey(a).toLowerCase().localeCompare(getKey(b).toLowerCase()));
     renderFileList();
@@ -758,175 +1048,127 @@
     renderFileList();
   });
 
-  // ── Search ──
   searchInput.addEventListener('input', () => renderFileList());
 
   function renderFileList() {
-    if (!allFiles.length) {
-      fileListWrap.style.display = 'none';
-      searchWrap.style.display = 'none';
-      return;
-    }
-
-    fileListWrap.style.display = 'block';
-    searchWrap.style.display = 'block';
+    if (!allFiles.length) { fileListSection.style.display = 'none'; return; }
+    fileListSection.style.display = 'block';
     fileListInner.innerHTML = '';
-
     const query = searchInput.value.toLowerCase().trim();
     let shown = 0;
-
     for (const file of allFiles) {
       const name = getKey(file);
       if (query && !name.toLowerCase().includes(query)) continue;
-
       const ext = getExt(name);
       const willSkip = excludedExts.has(ext);
       shown++;
-
       const div = document.createElement('div');
       div.className = 'file-item';
       div.innerHTML = `
-        <span class="fname" title="${esc(name)}">${esc(name)}</span>
+        <span class="icon icon-sm" style="opacity:0.4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </span>
+        <span class="fname">${esc(name)}</span>
         <span class="fsize">${formatBytes(file.size)}</span>
-        <span class="fstatus ${willSkip ? 'skip' : 'ok'}">${willSkip ? 'excluded' : 'included'}</span>
+        <span class="fstatus ${willSkip ? 'skip' : 'ok'}">${willSkip ? 'excluded' : 'ok'}</span>
       `;
       fileListInner.appendChild(div);
     }
-
-    fileCountLabel.textContent = `${allFiles.length} file${allFiles.length !== 1 ? 's' : ''}` +
-      (query ? ` (${shown} shown)` : '');
+    fileCountLabel.textContent = `${allFiles.length} file${allFiles.length !== 1 ? 's' : ''}` + (query ? ` (${shown} shown)` : '');
   }
 
   // ── Split mode ──
   splitModeEl.addEventListener('change', () => {
     const mode = splitModeEl.value;
-    if (mode === 'none') {
-      splitValueRow.classList.add('hidden');
-    } else {
+    if (mode === 'none') { splitValueRow.classList.add('hidden'); }
+    else {
       splitValueRow.classList.remove('hidden');
       if (mode === 'chars') {
         splitValueLabel.textContent = 'Max characters per batch';
         splitValueEl.value = '50000';
-        splitHintEl.textContent = 'Files grouped until the character limit is reached.';
+        splitHintEl.textContent = 'Files grouped until character limit is reached.';
       } else {
         splitValueLabel.textContent = 'Number of batches';
         splitValueEl.value = '2';
-        splitHintEl.textContent = 'Files evenly split across the given number of batches.';
+        splitHintEl.textContent = 'Files evenly split across the given number.';
       }
     }
   });
 
-  // ── Exclusion tags ──
+  // ── Exclusion Tags ──
   function addExts(raw) {
     let changed = false;
     raw.split(',').forEach(s => {
       let ext = s.trim().toLowerCase();
       if (!ext) return;
       if (!ext.startsWith('.')) ext = '.' + ext;
-      if (!excludedExts.has(ext)) {
-        excludedExts.add(ext);
-        changed = true;
-      }
+      if (!excludedExts.has(ext)) { excludedExts.add(ext); changed = true; }
     });
     if (changed) { renderTags(); renderFileList(); }
   }
 
   function removeExt(ext) {
     excludedExts.delete(ext);
-    renderTags();
-    renderFileList();
-    syncPresetStates();
+    renderTags(); renderFileList(); syncPresetStates();
   }
 
   function renderTags() {
-    tagList.innerHTML = '';
+    tagListEl.innerHTML = '';
     const sorted = [...excludedExts].sort();
-
     if (!sorted.length) {
-      tagList.innerHTML = '<div class="empty-state">No exclusions — all file types will be included.</div>';
+      tagListEl.innerHTML = '<div class="empty-state">No exclusions — all file types included.</div>';
       return;
     }
-
     for (const ext of sorted) {
       const span = document.createElement('span');
       span.className = 'tag';
       span.innerHTML = `${esc(ext)} <span class="remove" data-ext="${esc(ext)}">×</span>`;
       span.querySelector('.remove').addEventListener('click', () => removeExt(ext));
-      tagList.appendChild(span);
+      tagListEl.appendChild(span);
     }
   }
 
   extAddBtn.addEventListener('click', () => { addExts(extInput.value); extInput.value = ''; });
-  extInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter') { addExts(extInput.value); extInput.value = ''; }
-  });
+  extInput.addEventListener('keydown', e => { if (e.key === 'Enter') { addExts(extInput.value); extInput.value = ''; } });
 
   // ── Presets ──
   document.querySelectorAll('.preset-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const key = btn.dataset.preset;
-
       if (key === 'clear') {
-        excludedExts.clear();
-        activePresets.clear();
+        excludedExts.clear(); activePresets.clear();
         document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-        renderTags();
-        renderFileList();
-        return;
+        renderTags(); renderFileList(); return;
       }
-
       const exts = PRESETS[key];
       if (!exts) return;
-
       if (activePresets.has(key)) {
-        // Remove preset
-        activePresets.delete(key);
-        btn.classList.remove('active');
+        activePresets.delete(key); btn.classList.remove('active');
         exts.forEach(e => excludedExts.delete(e));
       } else {
-        // Add preset
-        activePresets.add(key);
-        btn.classList.add('active');
+        activePresets.add(key); btn.classList.add('active');
         exts.forEach(e => excludedExts.add(e));
       }
-
-      renderTags();
-      renderFileList();
+      renderTags(); renderFileList();
     });
   });
 
   function syncPresetStates() {
     for (const [key, exts] of Object.entries(PRESETS)) {
-      const allPresent = exts.every(e => excludedExts.has(e));
       const btn = document.querySelector(`[data-preset="${key}"]`);
       if (!btn) continue;
-      if (allPresent) {
-        activePresets.add(key);
-        btn.classList.add('active');
-      } else {
-        activePresets.delete(key);
-        btn.classList.remove('active');
-      }
+      const allPresent = exts.every(e => excludedExts.has(e));
+      if (allPresent) { activePresets.add(key); btn.classList.add('active'); }
+      else { activePresets.delete(key); btn.classList.remove('active'); }
     }
   }
 
   renderTags();
 
   // ── Helpers ──
-  function getExt(name) {
-    const i = name.lastIndexOf('.');
-    return i >= 0 ? name.slice(i).toLowerCase() : '';
-  }
-
-  function formatBytes(bytes) {
-    if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-  }
-
-  function esc(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+  function getExt(name) { const i = name.lastIndexOf('.'); return i >= 0 ? name.slice(i).toLowerCase() : ''; }
+  function formatBytes(bytes) { if (bytes < 1024) return bytes + ' B'; if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB'; return (bytes / 1048576).toFixed(1) + ' MB'; }
+  function esc(str) { return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
   function likelyBinary(buffer) {
     const bytes = new Uint8Array(buffer.slice(0, 8192));
@@ -936,17 +1178,14 @@
       if (b === 0) return true;
       if ((b < 7 || (b > 13 && b < 32)) && b !== 9) suspicious++;
     }
-    return bytes.length > 0 && suspicious / bytes.length > 0.2;
+    return bytes.length > 0 && suspicious / bytes.length > 0.15;
   }
 
   async function readFile(file) {
     const buffer = await file.arrayBuffer();
     if (likelyBinary(buffer)) return { ok: false, reason: 'binary' };
-    try {
-      return { ok: true, text: new TextDecoder('utf-8', { fatal: false }).decode(buffer) };
-    } catch {
-      return { ok: false, reason: 'unreadable' };
-    }
+    try { return { ok: true, text: new TextDecoder('utf-8', { fatal: false }).decode(buffer) }; }
+    catch { return { ok: false, reason: 'unreadable' }; }
   }
 
   function buildLabel(index, file, mode) {
@@ -957,14 +1196,11 @@
   }
 
   function splitByChars(entries, max) {
-    const batches = [];
-    let cur = '';
+    const batches = []; let cur = '';
     for (const e of entries) {
       const add = cur ? '\n\n' + e : e;
-      if (cur && cur.length + add.length > max) {
-        batches.push(cur);
-        cur = e;
-      } else { cur += add; }
+      if (cur && cur.length + add.length > max) { batches.push(cur); cur = e; }
+      else { cur += add; }
     }
     if (cur) batches.push(cur);
     return batches;
@@ -974,180 +1210,227 @@
     if (count <= 1) return [entries.join('\n\n')];
     const size = Math.ceil(entries.length / count);
     const batches = [];
-    for (let i = 0; i < entries.length; i += size)
-      batches.push(entries.slice(i, i + size).join('\n\n'));
+    for (let i = 0; i < entries.length; i += size) batches.push(entries.slice(i, i + size).join('\n\n'));
     return batches;
   }
 
   async function copyText(text) {
-    try { await navigator.clipboard.writeText(text); return true; }
-    catch { return false; }
+    try { await navigator.clipboard.writeText(text); return true; } catch { return false; }
   }
 
   function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2200);
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    setTimeout(() => toastEl.classList.remove('show'), 2200);
   }
 
   function downloadTxt(text, filename) {
     const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
+    const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
     URL.revokeObjectURL(url);
+  }
+
+  // ── Syntax Highlighting ──
+  function highlightBatch(rawText) {
+    const lines = rawText.split('\n');
+    const highlighted = [];
+
+    // Detect file label pattern
+    const fileLabelRegex = /^(file\.\d+(?:\s*—\s*.+)?:|.+\.\w+:)$/;
+
+    for (const line of lines) {
+      if (fileLabelRegex.test(line.trim())) {
+        highlighted.push(`<span class="line-file-label">${esc(line)}</span>`);
+      } else if (line.trim() === '') {
+        highlighted.push('');
+      } else if (line.trim().startsWith('[Skipped') || line.trim().startsWith('[Excluded')) {
+        highlighted.push(`<span class="syn-skipped">${esc(line)}</span>`);
+      } else {
+        highlighted.push(highlightLine(line));
+      }
+    }
+
+    return highlighted.join('\n');
+  }
+
+  function highlightLine(line) {
+    let out = esc(line);
+
+    // Comments
+    out = out.replace(/(\/\/.*)$/gm, '<span class="syn-comment">$1</span>');
+    out = out.replace(/(#.*)$/gm, '<span class="syn-comment">$1</span>');
+    out = out.replace(/(&lt;!--.+?--&gt;)/g, '<span class="syn-comment">$1</span>');
+
+    // Strings
+    out = out.replace(/(&quot;(?:[^&]|&(?!quot;))*?&quot;)/g, '<span class="syn-string">$1</span>');
+    out = out.replace(/(&#039;(?:[^&]|&(?!#039;))*?&#039;)/g, '<span class="syn-string">$1</span>');
+    out = out.replace(/("(?:[^"\\]|\\.)*?")/g, '<span class="syn-string">$1</span>');
+    out = out.replace(/('(?:[^'\\]|\\.)*?')/g, '<span class="syn-string">$1</span>');
+    out = out.replace(/(`(?:[^`\\]|\\.)*?`)/g, '<span class="syn-string">$1</span>');
+
+    // Numbers
+    out = out.replace(/\b(\d+\.?\d*)\b/g, '<span class="syn-number">$1</span>');
+
+    // Keywords
+    const keywords = ['function','const','let','var','return','if','else','for','while','do','switch','case','break','continue','class','extends','import','export','from','default','new','this','super','try','catch','finally','throw','async','await','yield','of','in','typeof','instanceof','void','delete','true','false','null','undefined','def','print','self','elif','except','lambda','with','as','pass','raise','None','True','False','and','or','not','is','int','str','float','list','dict','set','tuple'];
+    for (const kw of keywords) {
+      const re = new RegExp(`\\b(${kw})\\b`, 'g');
+      out = out.replace(re, '<span class="syn-keyword">$1</span>');
+    }
+
+    // HTML Tags
+    out = out.replace(/(&lt;\/?)([\w-]+)/g, '<span class="syn-tag">$1$2</span>');
+
+    // Function calls
+    out = out.replace(/\b([a-zA-Z_]\w*)\s*\(/g, '<span class="syn-func">$1</span>(');
+
+    // Operators
+    out = out.replace(/(===|!==|==|!=|&lt;=|&gt;=|=&gt;|\+\+|--|\|\||&amp;&amp;)/g, '<span class="syn-operator">$1</span>');
+
+    // Brackets
+    out = out.replace(/([{}()\[\]])/g, '<span class="syn-bracket">$1</span>');
+
+    return out;
   }
 
   // ── Build ──
   buildBtn.addEventListener('click', async () => {
-    if (!allFiles.length) { alert('Select files first.'); return; }
+    if (!allFiles.length) { showToast('Select files first'); return; }
 
-    buildBtn.textContent = '⏳ Processing…';
+    buildBtn.innerHTML = '<span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span> Processing...';
     buildBtn.disabled = true;
 
-    const labelMode        = labelModeEl.value;
-    const splitMode        = splitModeEl.value;
-    const splitValue       = parseInt(splitValueEl.value || '1', 10);
-    const skipBinary       = skipBinaryEl.checked;
-    const includePlaceholder = includePlaceholderEl.checked;
-    const showPreview      = showPreviewEl.checked;
+    // Small delay so UI updates
+    await new Promise(r => setTimeout(r, 50));
 
-    const sorted = [...allFiles].sort((a, b) =>
-      getKey(a).toLowerCase().localeCompare(getKey(b).toLowerCase())
-    );
+    const labelMode = labelModeEl.value;
+    const splitMode = splitModeEl.value;
+    const splitValue = parseInt(splitValueEl.value || '1', 10);
+    const skipBinary = skipBinaryEl.checked;
+    const includePlaceholder = includePlaceholderEl.checked;
+    const showPreview = showPreviewEl.checked;
+
+    const sorted = [...allFiles].sort((a, b) => getKey(a).toLowerCase().localeCompare(getKey(b).toLowerCase()));
 
     const entries = [];
-    let included = 0;
-    let skipped = 0;
-    let idx = 1;
+    let included = 0, skipped = 0, idx = 1;
 
     for (const file of sorted) {
       const name = getKey(file);
       const ext = getExt(name);
 
-      // Excluded by extension
       if (excludedExts.has(ext)) {
-        if (includePlaceholder) {
-          entries.push(`${buildLabel(idx, file, labelMode)}\n[Excluded: ${name}]`);
-          idx++;
-        }
-        skipped++;
-        continue;
+        if (includePlaceholder) { entries.push(`${buildLabel(idx, file, labelMode)}\n[Excluded: ${name}]`); idx++; }
+        skipped++; continue;
       }
 
       const result = await readFile(file);
 
       if (!result.ok) {
         if (skipBinary) {
-          if (includePlaceholder) {
-            entries.push(`${buildLabel(idx, file, labelMode)}\n[Skipped (${result.reason}): ${name}]`);
-            idx++;
-          }
+          if (includePlaceholder) { entries.push(`${buildLabel(idx, file, labelMode)}\n[Skipped (${result.reason}): ${name}]`); idx++; }
           skipped++;
         } else {
           entries.push(`${buildLabel(idx, file, labelMode)}\n[${result.reason}: ${name}]`);
-          idx++;
-          included++;
+          idx++; included++;
         }
         continue;
       }
 
       entries.push(`${buildLabel(idx, file, labelMode)}\n${result.text}`);
-      idx++;
-      included++;
+      idx++; included++;
     }
 
-    // Split
     let batches;
-    if (splitMode === 'none') {
-      batches = entries.length ? [entries.join('\n\n')] : [];
-    } else if (splitMode === 'count') {
-      batches = splitByCount(entries, Math.max(1, splitValue));
-    } else {
-      batches = splitByChars(entries, Math.max(1, splitValue));
-    }
+    if (splitMode === 'none') batches = entries.length ? [entries.join('\n\n')] : [];
+    else if (splitMode === 'count') batches = splitByCount(entries, Math.max(1, splitValue));
+    else batches = splitByChars(entries, Math.max(1, splitValue));
 
     lastBatches = batches;
 
-    // Stats
     document.getElementById('statFiles').textContent = included;
     document.getElementById('statSkipped').textContent = skipped;
     document.getElementById('statBatches').textContent = batches.length;
 
     outputSection.classList.remove('hidden');
-    batchList.innerHTML = '';
+    batchListEl.innerHTML = '';
 
     batches.forEach((batch, i) => {
       const lines = batch.split('\n').length;
       const card = document.createElement('div');
       card.className = 'batch-card';
 
+      let previewHtml = '';
+      if (showPreview) {
+        previewHtml = `
+          <div class="code-view">
+            <pre>${highlightBatch(batch)}</pre>
+            <textarea class="hidden-textarea">${esc(batch)}</textarea>
+          </div>
+        `;
+      }
+
       card.innerHTML = `
         <div class="batch-top">
           <div>
             <div class="batch-title">Batch ${i + 1}</div>
-            <div class="batch-meta">${batch.length.toLocaleString()} chars · ${lines.toLocaleString()} lines</div>
+            <div class="batch-meta">${batch.length.toLocaleString()} chars &middot; ${lines.toLocaleString()} lines</div>
           </div>
+          <span class="batch-number">${i + 1} / ${batches.length}</span>
         </div>
-        ${showPreview ? `<textarea id="ta_${i}" spellcheck="false" readonly></textarea>` : ''}
+        ${previewHtml}
         <div class="btn-row">
-          <button class="btn btn-green btn-sm copy-btn">📋 Copy</button>
-          <button class="btn btn-outline btn-sm dl-btn">💾 Download</button>
+          <button class="btn btn-primary btn-sm copy-btn">
+            <span class="icon icon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>
+            Copy
+          </button>
+          <button class="btn btn-outline btn-sm dl-btn">
+            <span class="icon icon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg></span>
+            Download
+          </button>
         </div>
       `;
 
       if (showPreview) {
-        const ta = card.querySelector(`#ta_${i}`);
-        ta.value = batch;
+        const hiddenTa = card.querySelector('.hidden-textarea');
+        hiddenTa.value = batch;
       }
 
-      card.querySelector('.copy-btn').addEventListener('click', async function() {
+      card.querySelector('.copy-btn').addEventListener('click', async () => {
         const ok = await copyText(batch);
-        if (ok) {
-          showToast(`Batch ${i + 1} copied!`);
-        } else {
+        if (ok) showToast(`Batch ${i + 1} copied`);
+        else {
           if (showPreview) {
-            const ta = card.querySelector('textarea');
-            ta.readOnly = false;
-            ta.focus();
-            ta.select();
+            const ta = card.querySelector('.hidden-textarea');
+            ta.style.cssText = 'position:static;width:100%;height:200px;opacity:1;margin-top:10px;background:#050507;color:#fafafa;border:1px solid #27272a;border-radius:8px;padding:12px;font-family:monospace;font-size:12px;';
+            ta.focus(); ta.select();
             showToast('Selected — copy manually');
-          } else {
-            alert('Clipboard unavailable. Enable preview to copy manually.');
-          }
+          } else { showToast('Clipboard unavailable'); }
         }
       });
 
-      card.querySelector('.dl-btn').addEventListener('click', () => {
-        downloadTxt(batch, `batch_${i + 1}.txt`);
-      });
+      card.querySelector('.dl-btn').addEventListener('click', () => downloadTxt(batch, `batch_${i + 1}.txt`));
 
-      batchList.appendChild(card);
+      batchListEl.appendChild(card);
     });
 
-    buildBtn.textContent = '⚡ Build Batches';
+    buildBtn.innerHTML = '<span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> Build Batches';
     buildBtn.disabled = false;
     outputSection.scrollIntoView({ behavior: 'smooth' });
   });
 
-  // ── Copy all ──
   copyAllBtn.addEventListener('click', async () => {
     if (!lastBatches.length) return;
     const ok = await copyText(lastBatches.join('\n\n'));
-    if (ok) showToast('All batches copied!');
-    else alert('Clipboard unavailable.');
+    if (ok) showToast('All batches copied');
+    else showToast('Clipboard unavailable');
   });
 
-  // ── Download all ──
   downloadAllBtn.addEventListener('click', () => {
     if (!lastBatches.length) return;
-    if (lastBatches.length === 1) {
-      downloadTxt(lastBatches[0], 'all_batches.txt');
-    } else {
-      lastBatches.forEach((b, i) => downloadTxt(b, `batch_${i + 1}.txt`));
-    }
+    if (lastBatches.length === 1) downloadTxt(lastBatches[0], 'all_batches.txt');
+    else lastBatches.forEach((b, i) => downloadTxt(b, `batch_${i + 1}.txt`));
   });
 
 </script>
