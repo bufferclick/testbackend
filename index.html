@@ -4,1203 +4,788 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>III — Infrequent, Insufficient or Inadequate?</title>
-
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://freesvg.org/img/Folder-1.png" />
-
-  <!-- Discord / Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="III — Infrequent, Insufficient or Inadequate?" />
   <meta property="og:description" content="Batch your project files into clipboard-ready chunks. No uploads. No servers. Pure client-side magic. Made by BufferClick." />
   <meta property="og:image" content="https://freesvg.org/img/Folder-1.png" />
   <meta property="og:url" content="https://iii.pages.dev" />
   <meta property="og:site_name" content="III by BufferClick" />
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="III — Infrequent, Insufficient or Inadequate?" />
   <meta name="twitter:description" content="Batch your project files into clipboard-ready chunks. No uploads. Pure client-side." />
   <meta name="twitter:image" content="https://freesvg.org/img/Folder-1.png" />
-
-  <!-- Discord sidebar color -->
   <meta name="theme-color" content="#ffffff" />
-
-  <!-- SEO -->
-  <meta name="description" content="Batch your project files into clipboard-ready chunks. No uploads. No servers. Everything runs locally in your browser." />
+  <meta name="description" content="Batch your project files into clipboard-ready chunks. No uploads. No servers. Everything runs locally." />
   <meta name="author" content="BufferClick" />
-
-  <style>
-    :root {
-      --bg: #09090b;
-      --surface: #111113;
-      --surface2: #18181b;
-      --surface3: #1f1f23;
-      --surface4: #27272a;
-      --border: #27272a;
-      --border2: #3f3f46;
-      --text: #fafafa;
-      --text2: #e4e4e7;
-      --muted: #71717a;
-      --muted2: #52525b;
-      --accent: #ffffff;
-      --accent-dim: rgba(255,255,255,0.06);
-      --accent-dim2: rgba(255,255,255,0.1);
-      --green: #22c55e;
-      --green-dim: rgba(34,197,94,0.1);
-      --red: #ef4444;
-      --red-dim: rgba(239,68,68,0.08);
-      --yellow: #eab308;
-      --blue: #3b82f6;
-      --purple: #a855f7;
-      --cyan: #06b6d4;
-      --orange: #f97316;
-      --radius: 12px;
-      --radius-sm: 8px;
-      --radius-xs: 6px;
-      --shadow: 0 1px 3px rgba(0,0,0,0.4);
-      --shadow-lg: 0 4px 20px rgba(0,0,0,0.5);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 16px;
-      padding-bottom: 100px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
-
-    .icon svg { width: 100%; height: 100%; }
-    .icon-lg { width: 22px; height: 22px; }
-    .icon-xl { width: 28px; height: 28px; }
-    .icon-sm { width: 14px; height: 14px; }
-
-    .header {
-      padding: 24px 0 28px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 24px;
-    }
-
-    .header-top {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-
-    .header-logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 6px;
-    }
-
-    .header-logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: invert(1);
-    }
-
-    .header h1 {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.4px;
-      color: var(--text);
-      line-height: 1.2;
-    }
-
-    .header-sub {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .header-sub a {
-      color: var(--text2);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-
-    .header-sub a:hover { color: var(--text); text-decoration: underline; }
-
-    .header-badge {
-      display: inline-block;
-      background: var(--surface3);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 999px;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      margin-top: 10px;
-    }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 16px;
-      box-shadow: var(--shadow);
-    }
-
-    .card-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      color: var(--muted);
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .card-title .icon { opacity: 0.5; }
-
-    .file-picker-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    @media (max-width: 400px) {
-      .file-picker-wrap { grid-template-columns: 1fr; }
-    }
-
-    .file-picker-btn {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: var(--surface2);
-      border: 1px dashed var(--border2);
-      border-radius: var(--radius);
-      padding: 24px 16px;
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-      text-align: center;
-    }
-
-    .file-picker-btn:hover,
-    .file-picker-btn:focus-within {
-      border-color: var(--accent);
-      border-style: solid;
-      background: var(--accent-dim);
-    }
-
-    .file-picker-btn input {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-    }
-
-    .file-picker-btn .picker-icon {
-      width: 32px;
-      height: 32px;
-      opacity: 0.7;
-    }
-
-    .file-picker-btn .picker-icon img {
-      width: 100%;
-      height: 100%;
-      filter: invert(1);
-    }
-
-    .file-picker-btn .picker-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text2);
-    }
-
-    .file-picker-btn .picker-sub {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: -4px;
-    }
-
-    .file-list-section {
-      margin-top: 14px;
-      display: none;
-    }
-
-    .file-list-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .file-list-header span {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
-    }
-
-    .file-list-clear {
-      font-size: 11px;
-      background: var(--red-dim);
-      color: var(--red);
-      border: 1px solid rgba(239,68,68,0.2);
-      border-radius: var(--radius-xs);
-      padding: 4px 10px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .file-list-clear:hover { background: rgba(239,68,68,0.15); }
-
-    .search-bar {
-      width: 100%;
-      padding: 9px 12px 9px 34px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--surface2);
-      color: var(--text);
-      font-size: 13px;
-      outline: none;
-      margin-bottom: 8px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: 10px center;
-    }
-
-    .search-bar:focus { border-color: var(--text); }
-
-    .file-list-inner {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      max-height: 200px;
-      overflow-y: auto;
-    }
-
-    .file-item {
-      display: flex;
-      align-items: center;
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--border);
-      font-size: 12px;
-      gap: 10px;
-    }
-
-    .file-item:last-child { border-bottom: none; }
-
-    .file-item .fname {
-      color: var(--text2);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      flex: 1;
-      font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
-    }
-
-    .file-item .fsize {
-      color: var(--muted2);
-      font-size: 11px;
-      white-space: nowrap;
-    }
-
-    .file-item .fstatus {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      white-space: nowrap;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-
-    .fstatus.ok { color: var(--green); background: var(--green-dim); }
-    .fstatus.skip { color: var(--red); background: var(--red-dim); }
-
-    .options-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .option-row {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .option-row label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text2);
-    }
-
-    .option-row .hint {
-      font-size: 11px;
-      color: var(--muted);
-      line-height: 1.4;
-      margin-top: 2px;
-    }
-
-    select, input[type="number"], input[type="text"] {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--surface2);
-      color: var(--text);
-      font-size: 13px;
-      appearance: none;
-      -webkit-appearance: none;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      padding-right: 34px;
-    }
-
-    select:focus, input:focus { border-color: var(--text); }
-
-    .tag-input-wrap {
-      display: flex;
-      gap: 8px;
-    }
-
-    .tag-input-wrap input { flex: 1; }
-
-    .tag-add-btn {
-      padding: 10px 16px;
-      border-radius: var(--radius-sm);
-      background: var(--surface3);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.15s;
-    }
-
-    .tag-add-btn:hover {
-      background: var(--surface4);
-      border-color: var(--text);
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 10px;
-      min-height: 32px;
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: var(--surface3);
-      border: 1px solid var(--border);
-      color: var(--text2);
-      border-radius: 999px;
-      padding: 4px 10px;
-      font-size: 12px;
-      font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
-    }
-
-    .tag .remove {
-      cursor: pointer;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 14px;
-      line-height: 1;
-      transition: color 0.15s;
-    }
-
-    .tag .remove:hover { color: var(--red); }
-
-    .empty-state {
-      color: var(--muted);
-      font-size: 12px;
-      padding: 6px 0;
-    }
-
-    .preset-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 10px;
-    }
-
-    .preset-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      border: 1px solid var(--border);
-      background: var(--surface2);
-      color: var(--muted);
-      transition: all 0.15s;
-      letter-spacing: 0.3px;
-    }
-
-    .preset-btn:hover {
-      background: var(--accent-dim);
-      border-color: var(--text);
-      color: var(--text);
-    }
-
-    .preset-btn.active {
-      background: var(--accent-dim2);
-      border-color: var(--text);
-      color: var(--text);
-    }
-
-    .preset-btn.danger {
-      border-color: rgba(239,68,68,0.3);
-      color: var(--red);
-    }
-
-    .preset-btn.danger:hover {
-      background: var(--red-dim);
-      border-color: var(--red);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      padding: 13px 16px;
-      border-radius: var(--radius);
-      border: none;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.15s;
-      letter-spacing: -0.2px;
-    }
-
-    .btn:active { transform: scale(0.98); }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-    .btn-primary { background: var(--text); color: var(--bg); }
-    .btn-primary:hover { opacity: 0.9; }
-    .btn-green { background: var(--green); color: #052e16; }
-    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text2); }
-    .btn-outline:hover { border-color: var(--text); background: var(--accent-dim); }
-    .btn-sm { padding: 9px 14px; font-size: 12px; border-radius: var(--radius-sm); }
-
-    .btn-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .btn-row .btn { flex: 1; }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .stat-box {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 12px 8px;
-      text-align: center;
-    }
-
-    .stat-box .val {
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--text);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .stat-box .key {
-      font-size: 10px;
-      color: var(--muted);
-      margin-top: 3px;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      font-weight: 600;
-    }
-
-    .batch-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 14px;
-      box-shadow: var(--shadow);
-    }
-
-    .batch-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .batch-title { font-size: 14px; font-weight: 700; color: var(--text); }
-
-    .batch-meta {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 3px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .batch-number {
-      background: var(--surface3);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-
-    .code-view {
-      position: relative;
-      margin-top: 10px;
-    }
-
-    .code-view pre {
-      width: 100%;
-      min-height: 220px;
-      max-height: 450px;
-      overflow: auto;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: #050507;
-      padding: 14px;
-      font-family: 'SF Mono', 'Cascadia Code', 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-      font-size: 12px;
-      line-height: 1.65;
-      color: var(--text2);
-      white-space: pre-wrap;
-      word-break: break-word;
-      tab-size: 2;
-      -moz-tab-size: 2;
-    }
-
-    .code-view .line-file-label { color: var(--cyan); font-weight: 700; }
-    .code-view .line-separator { color: var(--muted2); }
-    .syn-keyword  { color: var(--purple); }
-    .syn-string   { color: var(--green); }
-    .syn-comment  { color: var(--muted); font-style: italic; }
-    .syn-number   { color: var(--orange); }
-    .syn-func     { color: var(--blue); }
-    .syn-tag      { color: var(--red); }
-    .syn-attr     { color: var(--yellow); }
-    .syn-bracket  { color: var(--muted); }
-    .syn-operator { color: var(--red); }
-    .syn-type     { color: var(--cyan); }
-    .syn-skipped  { color: var(--muted); font-style: italic; }
-
-    .hidden-textarea {
-      position: absolute;
-      left: -9999px;
-      top: 0;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-    }
-
-    .toggle-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 0;
-      gap: 12px;
-    }
-
-    .toggle-text { flex: 1; }
-    .toggle-text .toggle-label { font-size: 13px; font-weight: 600; color: var(--text2); }
-    .toggle-text .toggle-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
-
-    .toggle {
-      position: relative;
-      width: 42px;
-      height: 24px;
-      flex-shrink: 0;
-    }
-
-    .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
-
-    .toggle-slider {
-      position: absolute;
-      inset: 0;
-      background: var(--surface3);
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: 1px solid var(--border);
-    }
-
-    .toggle-slider::before {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      left: 3px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--muted);
-      border-radius: 50%;
-      transition: all 0.2s;
-    }
-
-    .toggle input:checked + .toggle-slider {
-      background: rgba(255,255,255,0.1);
-      border-color: var(--text);
-    }
-
-    .toggle input:checked + .toggle-slider::before {
-      left: 21px;
-      background: var(--text);
-    }
-
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 16px 0;
-    }
-
-    .section-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin: 28px 0 14px;
-    }
-
-    .hidden { display: none !important; }
-
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: var(--text);
-      color: var(--bg);
-      padding: 10px 20px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      transition: transform 0.25s ease;
-      z-index: 999;
-      white-space: nowrap;
-      pointer-events: none;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .toast.show { transform: translateX(-50%) translateY(0); }
-
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--surface4); border-radius: 999px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--muted2); }
-
-    .footer {
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .footer a {
-      color: var(--text2);
-      text-decoration: none;
-    }
-
-    .footer a:hover { text-decoration: underline; }
-  </style>
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
 
-  <div class="header">
-    <div class="header-top">
-      <div class="header-logo">
-        <img src="https://freesvg.org/img/Folder-1.png" alt="III" />
+  <!-- ══════════════════════════════════════
+       PAGE: MAIN APP (/)
+       ══════════════════════════════════════ -->
+  <div class="page" id="page-app">
+    <div class="header">
+      <div class="header-top">
+        <div class="header-logo"><img src="https://freesvg.org/img/Folder-1.png" alt="III" /></div>
+        <div>
+          <h1>Infrequent, Insufficient or Inadequate?</h1>
+          <div class="header-sub">Made by <a href="https://github.com/BufferClick" target="_blank">BufferClick</a> · <a href="/forums/api">API Docs</a></div>
+        </div>
       </div>
-      <div>
-        <h1>Infrequent, Insufficient or Inadequate?</h1>
-        <div class="header-sub">Made by <a href="https://github.com/BufferClick" target="_blank">BufferClick</a></div>
-      </div>
+      <span class="header-badge">All processing runs locally</span>
     </div>
-    <span class="header-badge">All processing runs locally</span>
-  </div>
 
-  <div class="card">
-    <div class="card-title">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>
-      Select Files
-    </div>
-    <div class="file-picker-wrap">
-      <label class="file-picker-btn">
-        <input type="file" id="folderInput" webkitdirectory multiple />
-        <div class="picker-icon"><img src="https://freesvg.org/img/Folder-1.png" alt="" /></div>
-        <span class="picker-label">Pick Folder</span>
-        <span class="picker-sub">All files recursively</span>
-      </label>
-      <label class="file-picker-btn">
-        <input type="file" id="filesInput" multiple />
-        <div class="picker-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%;opacity:0.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-        <span class="picker-label">Pick Files</span>
-        <span class="picker-sub">Select individually</span>
-      </label>
-    </div>
-    <div class="file-list-section" id="fileListSection">
-      <div class="file-list-header">
-        <span id="fileCountLabel">0 files</span>
-        <button class="file-list-clear" id="clearFilesBtn">Clear all</button>
+    <div class="card">
+      <div class="card-title"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>Select Files</div>
+      <div class="file-picker-wrap">
+        <label class="file-picker-btn">
+          <input type="file" id="folderInput" webkitdirectory multiple />
+          <div class="picker-icon"><img src="https://freesvg.org/img/Folder-1.png" alt="" /></div>
+          <span class="picker-label">Pick Folder</span>
+          <span class="picker-sub">All files recursively</span>
+        </label>
+        <label class="file-picker-btn">
+          <input type="file" id="filesInput" multiple />
+          <div class="picker-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:100%;opacity:0.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <span class="picker-label">Pick Files</span>
+          <span class="picker-sub">Select individually</span>
+        </label>
       </div>
-      <input type="text" class="search-bar" id="searchInput" placeholder="Search files..." />
-      <div class="file-list-inner" id="fileListInner"></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg></span>
-      Exclude Extensions
-    </div>
-    <div class="option-row">
-      <label>Add extensions to exclude</label>
-      <div class="tag-input-wrap">
-        <input type="text" id="extInput" placeholder=".png, .zip, .exe" />
-        <button class="tag-add-btn" id="extAddBtn">Add</button>
+      <div class="file-list-section" id="fileListSection">
+        <div class="file-list-header">
+          <span id="fileCountLabel">0 files</span>
+          <button class="file-list-clear" id="clearFilesBtn">Clear all</button>
+        </div>
+        <input type="text" class="search-bar" id="searchInput" placeholder="Search files..." />
+        <div class="file-list-inner" id="fileListInner"></div>
       </div>
-      <div class="hint">Comma-separated. Press Enter or click Add.</div>
     </div>
-    <div class="tag-list" id="tagList">
-      <div class="empty-state">No exclusions — all file types included.</div>
-    </div>
-    <hr class="divider" />
-    <div class="option-row">
-      <label>Quick Presets</label>
-      <div class="hint">Click to toggle. Active presets are highlighted.</div>
-    </div>
-    <div class="preset-row">
-      <button class="preset-btn" data-preset="images">Images</button>
-      <button class="preset-btn" data-preset="videos">Videos</button>
-      <button class="preset-btn" data-preset="audio">Audio</button>
-      <button class="preset-btn" data-preset="archives">Archives</button>
-      <button class="preset-btn" data-preset="binaries">Binaries</button>
-      <button class="preset-btn" data-preset="docs">Docs</button>
-      <button class="preset-btn" data-preset="fonts">Fonts</button>
-      <button class="preset-btn danger" data-preset="clear">Clear All</button>
-    </div>
-  </div>
 
-  <div class="card">
-    <div class="card-title">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
-      Options
-    </div>
-    <div class="options-grid">
+    <div class="card">
+      <div class="card-title"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg></span>Exclude Extensions</div>
       <div class="option-row">
-        <label>Label Style</label>
-        <select id="labelMode">
-          <option value="numbered">file.1, file.2, file.3 ...</option>
-          <option value="filename">filename.ext</option>
-          <option value="both">file.1 — filename.ext</option>
-        </select>
+        <label>Add extensions to exclude</label>
+        <div class="tag-input-wrap">
+          <input type="text" id="extInput" placeholder=".png, .zip, .exe" />
+          <button class="tag-add-btn" id="extAddBtn">Add</button>
+        </div>
+        <div class="hint">Comma-separated. Press Enter or click Add.</div>
       </div>
-      <div class="option-row">
-        <label>Split Mode</label>
-        <select id="splitMode">
-          <option value="chars">Auto — by max characters</option>
-          <option value="count">Manual — number of batches</option>
-          <option value="none">No split (single batch)</option>
-        </select>
-      </div>
-      <div class="option-row" id="splitValueRow">
-        <label id="splitValueLabel">Max characters per batch</label>
-        <input type="number" id="splitValue" value="50000" min="1" />
-        <div class="hint" id="splitHint">Files grouped until character limit is reached.</div>
-      </div>
+      <div class="tag-list" id="tagList"><div class="empty-state">No exclusions — all file types included.</div></div>
       <hr class="divider" />
-      <div class="toggle-wrap">
-        <div class="toggle-text">
-          <div class="toggle-label">Skip binary files</div>
-          <div class="toggle-sub">Auto-detect and skip unreadable binary content</div>
-        </div>
-        <label class="toggle"><input type="checkbox" id="skipBinary" checked /><span class="toggle-slider"></span></label>
-      </div>
-      <div class="toggle-wrap">
-        <div class="toggle-text">
-          <div class="toggle-label">Include placeholders for skipped</div>
-          <div class="toggle-sub">Add [Skipped: filename] entries in output</div>
-        </div>
-        <label class="toggle"><input type="checkbox" id="includePlaceholder" /><span class="toggle-slider"></span></label>
-      </div>
-      <div class="toggle-wrap">
-        <div class="toggle-text">
-          <div class="toggle-label">Show code preview</div>
-          <div class="toggle-sub">Display syntax-highlighted preview for each batch</div>
-        </div>
-        <label class="toggle"><input type="checkbox" id="showPreview" checked /><span class="toggle-slider"></span></label>
+      <div class="option-row"><label>Quick Presets</label><div class="hint">Click to toggle.</div></div>
+      <div class="preset-row">
+        <button class="preset-btn" data-preset="images">Images</button>
+        <button class="preset-btn" data-preset="videos">Videos</button>
+        <button class="preset-btn" data-preset="audio">Audio</button>
+        <button class="preset-btn" data-preset="archives">Archives</button>
+        <button class="preset-btn" data-preset="binaries">Binaries</button>
+        <button class="preset-btn" data-preset="docs">Docs</button>
+        <button class="preset-btn" data-preset="fonts">Fonts</button>
+        <button class="preset-btn danger" data-preset="clear">Clear All</button>
       </div>
     </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Options</div>
+      <div class="options-grid">
+        <div class="option-row">
+          <label>Label Style</label>
+          <select id="labelMode">
+            <option value="numbered">file.1, file.2, file.3 ...</option>
+            <option value="filename">filename.ext</option>
+            <option value="both">file.1 — filename.ext</option>
+          </select>
+        </div>
+        <div class="option-row">
+          <label>Split Mode</label>
+          <select id="splitMode">
+            <option value="chars">Auto — by max characters</option>
+            <option value="count">Manual — number of batches</option>
+            <option value="none">No split (single batch)</option>
+          </select>
+        </div>
+        <div class="option-row" id="splitValueRow">
+          <label id="splitValueLabel">Max characters per batch</label>
+          <input type="number" id="splitValue" value="50000" min="1" />
+          <div class="hint" id="splitHint">Files grouped until character limit is reached.</div>
+        </div>
+        <hr class="divider" />
+        <div class="toggle-wrap"><div class="toggle-text"><div class="toggle-label">Skip binary files</div><div class="toggle-sub">Auto-detect and skip unreadable binary content</div></div><label class="toggle"><input type="checkbox" id="skipBinary" checked /><span class="toggle-slider"></span></label></div>
+        <div class="toggle-wrap"><div class="toggle-text"><div class="toggle-label">Include placeholders for skipped</div><div class="toggle-sub">Add [Skipped: filename] entries in output</div></div><label class="toggle"><input type="checkbox" id="includePlaceholder" /><span class="toggle-slider"></span></label></div>
+        <div class="toggle-wrap"><div class="toggle-text"><div class="toggle-label">Show code preview</div><div class="toggle-sub">Display syntax-highlighted preview for each batch</div></div><label class="toggle"><input type="checkbox" id="showPreview" checked /><span class="toggle-slider"></span></label></div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="buildBtn"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>Build Batches</button>
+
+    <div id="outputSection" class="hidden">
+      <div class="section-title">Output</div>
+      <div class="stats-grid">
+        <div class="stat-box"><div class="val" id="statFiles">0</div><div class="key">Included</div></div>
+        <div class="stat-box"><div class="val" id="statSkipped">0</div><div class="key">Skipped</div></div>
+        <div class="stat-box"><div class="val" id="statBatches">0</div><div class="key">Batches</div></div>
+      </div>
+      <button class="btn btn-primary" id="copyAllBtn"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>Copy All Merged</button>
+      <button class="btn btn-outline" id="downloadAllBtn" style="margin-top:8px;"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg></span>Download All as .txt</button>
+      <div id="batchList"></div>
+    </div>
+
+    <div class="footer">III by <a href="https://github.com/BufferClick" target="_blank">BufferClick</a> — Your files never leave your device.</div>
   </div>
 
-  <button class="btn btn-primary" id="buildBtn">
-    <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
-    Build Batches
-  </button>
-
-  <div id="outputSection" class="hidden">
-    <div class="section-title">Output</div>
-    <div class="stats-grid">
-      <div class="stat-box"><div class="val" id="statFiles">0</div><div class="key">Included</div></div>
-      <div class="stat-box"><div class="val" id="statSkipped">0</div><div class="key">Skipped</div></div>
-      <div class="stat-box"><div class="val" id="statBatches">0</div><div class="key">Batches</div></div>
+  <!-- ══════════════════════════════════════
+       PAGE: API INFO (/api)
+       ══════════════════════════════════════ -->
+  <div class="page" id="page-api">
+    <div class="header">
+      <div class="header-top">
+        <div class="header-logo"><img src="https://freesvg.org/img/Folder-1.png" alt="III" /></div>
+        <div>
+          <h1>III API</h1>
+          <div class="header-sub"><a href="/">Back to App</a> · <a href="/forums/api">Full Documentation</a></div>
+        </div>
+      </div>
+      <span class="header-badge">Client-Side API</span>
     </div>
-    <button class="btn btn-primary" id="copyAllBtn">
+
+    <div class="api-hero">
+      <h1>III JavaScript API</h1>
+      <p>Embed III's batching engine directly into your own website. No server required. Everything runs in the browser.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>Quick Start</div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:12px;">Add this single script tag to your HTML and you're ready to go:</p>
+      <div class="docs-code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <pre>&lt;script src="https://iii.pages.dev/main.js"&gt;&lt;/script&gt;</pre>
+      </div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:12px;">Then use the API:</p>
+      <div class="docs-code-block">
+        <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+        <pre>const batcher = new IIIBatcher();
+
+// Add files from a file input
+const input = document.querySelector('input[type="file"]');
+input.addEventListener('change', async () => {
+  const result = await batcher.process(input.files, {
+    labelMode: 'filename',
+    splitMode: 'chars',
+    maxChars: 50000
+  });
+
+  console.log(result.batches);    // Array of batch strings
+  console.log(result.included);   // Number of files included
+  console.log(result.skipped);    // Number of files skipped
+});</pre>
+      </div>
+      <div style="margin-top:16px;"><a href="/forums/api" class="btn btn-outline" style="width:auto;display:inline-flex;">Full Documentation</a></div>
+    </div>
+
+    <div class="footer">III by <a href="https://github.com/BufferClick" target="_blank">BufferClick</a></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE: FULL DOCS (/forums/api)
+       ══════════════════════════════════════ -->
+  <div class="page" id="page-docs">
+    <div class="header">
+      <div class="header-top">
+        <div class="header-logo"><img src="https://freesvg.org/img/Folder-1.png" alt="III" /></div>
+        <div>
+          <h1>III API Documentation</h1>
+          <div class="header-sub"><a href="/">Back to App</a> · <a href="/api">API Overview</a></div>
+        </div>
+      </div>
+      <span class="header-badge">Complete Reference</span>
+    </div>
+
+    <button class="btn btn-primary" id="copyDocsBtn" style="margin-bottom:24px;">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>
-      Copy All Merged
+      Copy Entire Documentation to Clipboard
     </button>
-    <button class="btn btn-outline" id="downloadAllBtn" style="margin-top:8px;">
-      <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg></span>
-      Download All as .txt
-    </button>
-    <div id="batchList"></div>
-  </div>
 
-  <div class="footer">
-    III by <a href="https://github.com/BufferClick" target="_blank">BufferClick</a> — Your files never leave your device.
+    <div class="docs-nav" id="docsNav">
+      <a href="#overview" class="active">Overview</a>
+      <a href="#installation">Installation</a>
+      <a href="#api-reference">API Reference</a>
+      <a href="#options">Options</a>
+      <a href="#response">Response</a>
+      <a href="#events">Events</a>
+      <a href="#examples">Examples</a>
+      <a href="#postmessage">PostMessage API</a>
+      <a href="#iframe">iFrame Embed</a>
+      <a href="#advanced">Advanced</a>
+      <a href="#errors">Error Handling</a>
+      <a href="#faq">FAQ</a>
+    </div>
+
+    <div id="docsContent">
+
+      <!-- OVERVIEW -->
+      <div class="docs-section" id="overview">
+        <h2>Overview</h2>
+        <p>The III API lets you integrate III's file batching engine into any website. It is <strong>100% client-side</strong> — no files are ever uploaded to any server. Everything runs in the user's browser.</p>
+        <div class="docs-callout"><strong>Key concept:</strong> III reads files using the browser's File API, formats them into labeled text blocks, splits them into batches based on your configuration, and returns the result as an array of strings.</div>
+        <h3>How it works</h3>
+        <ol>
+          <li>User selects files via <code>&lt;input type="file"&gt;</code> or drag-and-drop</li>
+          <li>You pass the <code>FileList</code> to <code>batcher.process()</code></li>
+          <li>III reads each file, detects binary files, applies exclusions</li>
+          <li>Files are formatted with labels and concatenated</li>
+          <li>The output is split into batches based on your split configuration</li>
+          <li>You receive an array of batch strings to display, copy, or send</li>
+        </ol>
+        <h3>Features</h3>
+        <ul>
+          <li>Zero dependencies — single JS file</li>
+          <li>Works in all modern browsers</li>
+          <li>Binary file detection</li>
+          <li>Extension-based exclusion</li>
+          <li>3 label modes: numbered, filename, both</li>
+          <li>3 split modes: by character limit, by batch count, no split</li>
+          <li>PostMessage API for cross-origin iFrame communication</li>
+          <li>Event callbacks for progress tracking</li>
+        </ul>
+      </div>
+
+      <!-- INSTALLATION -->
+      <div class="docs-section" id="installation">
+        <h2>Installation</h2>
+        <h3>Option 1: Script Tag (CDN)</h3>
+        <p>Add this to your HTML <code>&lt;head&gt;</code> or before <code>&lt;/body&gt;</code>:</p>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>&lt;script src="https://iii.pages.dev/main.js"&gt;&lt;/script&gt;</pre>
+        </div>
+        <h3>Option 2: Download and Self-Host</h3>
+        <p>Download <code>main.js</code> from <a href="/main.js" style="color:var(--cyan)">iii.pages.dev/main.js</a> and include it locally:</p>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>&lt;script src="./main.js"&gt;&lt;/script&gt;</pre>
+        </div>
+        <h3>Option 3: ES Module Import</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>import { IIIBatcher } from 'https://iii.pages.dev/main.js';</pre>
+        </div>
+        <div class="docs-callout warn"><strong>Note:</strong> The API is exposed both as a global <code>window.IIIBatcher</code> and as a named export for ES modules.</div>
+      </div>
+
+      <!-- API REFERENCE -->
+      <div class="docs-section" id="api-reference">
+        <h2>API Reference</h2>
+
+        <h3><code>new IIIBatcher(defaultOptions?)</code></h3>
+        <p>Creates a new batcher instance with optional default options.</p>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const batcher = new IIIBatcher({
+  labelMode: 'filename',
+  splitMode: 'chars',
+  maxChars: 50000,
+  skipBinary: true,
+  excludeExtensions: ['.png', '.jpg', '.zip'],
+  includePlaceholders: false
+});</pre>
+        </div>
+
+        <h3><code>batcher.process(files, options?)</code></h3>
+        <p>Processes a <code>FileList</code> or array of <code>File</code> objects. Returns a Promise.</p>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const result = await batcher.process(fileInput.files, {
+  labelMode: 'both',
+  splitMode: 'count',
+  batchCount: 3
+});
+
+// result.batches     → string[]
+// result.included    → number
+// result.skipped     → number
+// result.totalChars  → number
+// result.fileList    → { name, size, status }[]</pre>
+        </div>
+
+        <h3><code>batcher.processText(filesArray)</code></h3>
+        <p>Process an array of <code>{ name, content }</code> objects directly (no File API needed).</p>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const result = await batcher.processText([
+  { name: 'index.html', content: '&lt;html&gt;...&lt;/html&gt;' },
+  { name: 'style.css', content: 'body { color: red; }' },
+  { name: 'app.js', content: 'console.log("hello")' }
+]);</pre>
+        </div>
+
+        <h3><code>batcher.on(event, callback)</code></h3>
+        <p>Listen to processing events. See <a href="#events" style="color:var(--cyan)">Events</a> section.</p>
+
+        <h3><code>batcher.destroy()</code></h3>
+        <p>Cleans up event listeners and internal state.</p>
+      </div>
+
+      <!-- OPTIONS -->
+      <div class="docs-section" id="options">
+        <h2>Options</h2>
+        <p>Options can be passed to the constructor (as defaults) or to <code>.process()</code> (per-call override).</p>
+        <table class="docs-table">
+          <thead>
+            <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>labelMode</code></td><td><code>string</code></td><td><code>'numbered'</code></td><td><code>'numbered'</code>, <code>'filename'</code>, or <code>'both'</code></td></tr>
+            <tr><td><code>splitMode</code></td><td><code>string</code></td><td><code>'chars'</code></td><td><code>'chars'</code>, <code>'count'</code>, or <code>'none'</code></td></tr>
+            <tr><td><code>maxChars</code></td><td><code>number</code></td><td><code>50000</code></td><td>Max characters per batch (when splitMode is <code>'chars'</code>)</td></tr>
+            <tr><td><code>batchCount</code></td><td><code>number</code></td><td><code>2</code></td><td>Number of batches (when splitMode is <code>'count'</code>)</td></tr>
+            <tr><td><code>skipBinary</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Skip files detected as binary</td></tr>
+            <tr><td><code>includePlaceholders</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Include <code>[Skipped: file]</code> entries for excluded files</td></tr>
+            <tr><td><code>excludeExtensions</code></td><td><code>string[]</code></td><td><code>[]</code></td><td>Array of extensions to exclude, e.g. <code>['.png', '.zip']</code></td></tr>
+            <tr><td><code>sortFiles</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Sort files alphabetically before processing</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- RESPONSE -->
+      <div class="docs-section" id="response">
+        <h2>Response Object</h2>
+        <p>The <code>.process()</code> method returns a Promise that resolves to:</p>
+        <table class="docs-table">
+          <thead>
+            <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>batches</code></td><td><code>string[]</code></td><td>Array of formatted batch strings</td></tr>
+            <tr><td><code>included</code></td><td><code>number</code></td><td>Number of files that were included</td></tr>
+            <tr><td><code>skipped</code></td><td><code>number</code></td><td>Number of files that were skipped</td></tr>
+            <tr><td><code>totalChars</code></td><td><code>number</code></td><td>Total character count across all batches</td></tr>
+            <tr><td><code>totalFiles</code></td><td><code>number</code></td><td>Total files received (included + skipped)</td></tr>
+            <tr><td><code>fileList</code></td><td><code>object[]</code></td><td>Array of <code>{ name, size, status }</code> for each file</td></tr>
+            <tr><td><code>options</code></td><td><code>object</code></td><td>The resolved options used for this run</td></tr>
+          </tbody>
+        </table>
+        <h3>Example response</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>{
+  batches: [
+    "index.html:\n&lt;html&gt;...&lt;/html&gt;\n\nstyle.css:\nbody { }",
+    "app.js:\nconsole.log('hello')"
+  ],
+  included: 3,
+  skipped: 0,
+  totalChars: 1542,
+  totalFiles: 3,
+  fileList: [
+    { name: "index.html", size: 892, status: "included" },
+    { name: "style.css", size: 234, status: "included" },
+    { name: "app.js", size: 416, status: "included" }
+  ],
+  options: { labelMode: "filename", splitMode: "chars", maxChars: 50000 }
+}</pre>
+        </div>
+      </div>
+
+      <!-- EVENTS -->
+      <div class="docs-section" id="events">
+        <h2>Events</h2>
+        <p>Track progress with event callbacks:</p>
+        <table class="docs-table">
+          <thead>
+            <tr><th>Event</th><th>Callback Args</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>fileRead</code></td><td><code>{ name, index, total, status }</code></td><td>Fired after each file is read</td></tr>
+            <tr><td><code>progress</code></td><td><code>{ percent, current, total }</code></td><td>Progress percentage update</td></tr>
+            <tr><td><code>complete</code></td><td><code>result</code></td><td>Fired when processing is done</td></tr>
+            <tr><td><code>error</code></td><td><code>{ file, error }</code></td><td>Fired when a file fails to read</td></tr>
+          </tbody>
+        </table>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const batcher = new IIIBatcher();
+
+batcher.on('progress', ({ percent, current, total }) => {
+  console.log(`Processing: ${percent}% (${current}/${total})`);
+  progressBar.style.width = percent + '%';
+});
+
+batcher.on('fileRead', ({ name, status }) => {
+  console.log(`${name}: ${status}`);
+});
+
+batcher.on('complete', (result) => {
+  console.log(`Done! ${result.batches.length} batches created.`);
+});
+
+batcher.on('error', ({ file, error }) => {
+  console.error(`Failed to read ${file}: ${error}`);
+});</pre>
+        </div>
+      </div>
+
+      <!-- EXAMPLES -->
+      <div class="docs-section" id="examples">
+        <h2>Full Examples</h2>
+
+        <h3>Example 1: Basic File Upload Form</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;My Batcher&lt;/title&gt;
+  &lt;script src="https://iii.pages.dev/main.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;input type="file" id="files" multiple /&gt;
+  &lt;button id="go"&gt;Process&lt;/button&gt;
+  &lt;div id="output"&gt;&lt;/div&gt;
+
+  &lt;script&gt;
+    const batcher = new IIIBatcher({
+      labelMode: 'filename',
+      splitMode: 'chars',
+      maxChars: 30000,
+      excludeExtensions: ['.png', '.jpg']
+    });
+
+    document.getElementById('go').addEventListener('click', async () =&gt; {
+      const files = document.getElementById('files').files;
+      const result = await batcher.process(files);
+
+      const output = document.getElementById('output');
+      output.innerHTML = '';
+
+      result.batches.forEach((batch, i) =&gt; {
+        const pre = document.createElement('pre');
+        pre.textContent = batch;
+        output.appendChild(pre);
+
+        const btn = document.createElement('button');
+        btn.textContent = 'Copy Batch ' + (i + 1);
+        btn.onclick = () =&gt; navigator.clipboard.writeText(batch);
+        output.appendChild(btn);
+      });
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+        </div>
+
+        <h3>Example 2: Drag and Drop</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>&lt;div id="dropzone" style="border:2px dashed #444;padding:40px;text-align:center;"&gt;
+  Drop files here
+&lt;/div&gt;
+
+&lt;script&gt;
+  const batcher = new IIIBatcher();
+  const drop = document.getElementById('dropzone');
+
+  drop.addEventListener('dragover', e =&gt; { e.preventDefault(); });
+  drop.addEventListener('drop', async e =&gt; {
+    e.preventDefault();
+    const files = e.dataTransfer.files;
+    const result = await batcher.process(files);
+
+    result.batches.forEach((batch, i) =&gt; {
+      console.log(`--- Batch ${i + 1} ---`);
+      console.log(batch);
+    });
+  });
+&lt;/script&gt;</pre>
+        </div>
+
+        <h3>Example 3: Process Text Directly (No File Input)</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const batcher = new IIIBatcher({ labelMode: 'both' });
+
+const result = await batcher.processText([
+  { name: 'server.py', content: 'from flask import Flask\napp = Flask(__name__)' },
+  { name: 'config.json', content: '{ "debug": true }' },
+  { name: 'README.md', content: '# My Project\nThis is a readme.' }
+]);
+
+// Copy first batch
+navigator.clipboard.writeText(result.batches[0]);</pre>
+        </div>
+
+        <h3>Example 4: With Progress Bar</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>&lt;style&gt;
+  .progress { width: 100%; height: 8px; background: #222; border-radius: 4px; }
+  .progress-bar { height: 100%; background: #fff; border-radius: 4px; width: 0%; transition: width 0.1s; }
+&lt;/style&gt;
+
+&lt;input type="file" id="files" multiple webkitdirectory /&gt;
+&lt;div class="progress"&gt;&lt;div class="progress-bar" id="bar"&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div id="status"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+  const batcher = new IIIBatcher();
+  const bar = document.getElementById('bar');
+  const status = document.getElementById('status');
+
+  batcher.on('progress', ({ percent }) =&gt; {
+    bar.style.width = percent + '%';
+  });
+
+  batcher.on('fileRead', ({ name, status: s }) =&gt; {
+    status.textContent = `Reading: ${name} (${s})`;
+  });
+
+  batcher.on('complete', (result) =&gt; {
+    status.textContent = `Done! ${result.included} files in ${result.batches.length} batches.`;
+  });
+
+  document.getElementById('files').addEventListener('change', async (e) =&gt; {
+    await batcher.process(e.target.files);
+  });
+&lt;/script&gt;</pre>
+        </div>
+
+        <h3>Example 5: Send Batches to Discord Webhook</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const batcher = new IIIBatcher({
+  splitMode: 'chars',
+  maxChars: 1900  // Discord message limit ~2000
+});
+
+const result = await batcher.process(fileInput.files);
+
+for (const [i, batch] of result.batches.entries()) {
+  await fetch('YOUR_WEBHOOK_URL', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      content: \`\\\`\\\`\\\`\\nBatch \${i + 1}:\\n\${batch}\\n\\\`\\\`\\\`\`
+    })
+  });
+}</pre>
+        </div>
+      </div>
+
+      <!-- POSTMESSAGE -->
+      <div class="docs-section" id="postmessage">
+        <h2>PostMessage API (Cross-Origin)</h2>
+        <p>If you embed III in an iFrame, you can communicate with it using <code>postMessage</code>.</p>
+
+        <h3>Send files to III iFrame</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const iframe = document.getElementById('iii-frame');
+
+// Send configuration
+iframe.contentWindow.postMessage({
+  type: 'III_CONFIG',
+  options: {
+    labelMode: 'filename',
+    splitMode: 'chars',
+    maxChars: 40000
+  }
+}, 'https://iii.pages.dev');
+
+// Listen for results
+window.addEventListener('message', (e) => {
+  if (e.origin !== 'https://iii.pages.dev') return;
+  if (e.data.type === 'III_RESULT') {
+    console.log('Batches:', e.data.result.batches);
+    console.log('Included:', e.data.result.included);
+  }
+});</pre>
+        </div>
+
+        <h3>Message types</h3>
+        <table class="docs-table">
+          <thead>
+            <tr><th>Direction</th><th>Type</th><th>Data</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Parent to iFrame</td><td><code>III_CONFIG</code></td><td><code>{ options }</code></td></tr>
+            <tr><td>Parent to iFrame</td><td><code>III_PROCESS</code></td><td><code>{ files: [{name, content}] }</code></td></tr>
+            <tr><td>iFrame to Parent</td><td><code>III_RESULT</code></td><td><code>{ result }</code></td></tr>
+            <tr><td>iFrame to Parent</td><td><code>III_PROGRESS</code></td><td><code>{ percent, current, total }</code></td></tr>
+            <tr><td>iFrame to Parent</td><td><code>III_ERROR</code></td><td><code>{ error }</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- IFRAME -->
+      <div class="docs-section" id="iframe">
+        <h2>iFrame Embed</h2>
+        <p>You can embed the full III app as an iFrame in your site:</p>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>&lt;iframe
+  id="iii-frame"
+  src="https://iii.pages.dev"
+  width="100%"
+  height="800"
+  style="border: 1px solid #27272a; border-radius: 12px;"
+  allow="clipboard-write"
+&gt;&lt;/iframe&gt;</pre>
+        </div>
+        <div class="docs-callout warn"><strong>Tip:</strong> Add <code>allow="clipboard-write"</code> so the copy buttons work inside the iFrame.</div>
+      </div>
+
+      <!-- ADVANCED -->
+      <div class="docs-section" id="advanced">
+        <h2>Advanced Usage</h2>
+
+        <h3>Custom binary detection threshold</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const batcher = new IIIBatcher({
+  binaryThreshold: 0.1  // 10% suspicious bytes = binary (default 0.15)
+});</pre>
+        </div>
+
+        <h3>Custom file sorter</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const batcher = new IIIBatcher({
+  sortFn: (a, b) => a.size - b.size  // Sort by file size
+});</pre>
+        </div>
+
+        <h3>Filter files programmatically</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const batcher = new IIIBatcher({
+  filterFn: (file) => {
+    // Only include files under 100KB
+    return file.size < 100 * 1024;
+  }
+});</pre>
+        </div>
+
+        <h3>Custom label formatter</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const batcher = new IIIBatcher({
+  labelFormatter: (index, name) => {
+    return `=== [${index}] ${name} ===`;
+  }
+});</pre>
+        </div>
+
+        <h3>Chaining multiple processText calls</h3>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>const batcher = new IIIBatcher();
+
+const result1 = await batcher.processText(frontendFiles);
+const result2 = await batcher.processText(backendFiles);
+
+const allBatches = [...result1.batches, ...result2.batches];</pre>
+        </div>
+      </div>
+
+      <!-- ERRORS -->
+      <div class="docs-section" id="errors">
+        <h2>Error Handling</h2>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>try {
+  const result = await batcher.process(files);
+} catch (err) {
+  console.error('Processing failed:', err.message);
+}
+
+// Or with the error event
+batcher.on('error', ({ file, error }) => {
+  console.warn(`Could not read ${file}: ${error}`);
+});</pre>
+        </div>
+        <div class="docs-callout danger"><strong>Important:</strong> The <code>.process()</code> method will never throw for individual file read failures. It will skip or placeholder them based on your options. It only throws if no files are provided or a critical internal error occurs.</div>
+
+        <h3>Error codes</h3>
+        <table class="docs-table">
+          <thead><tr><th>Code</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><code>NO_FILES</code></td><td>No files were provided to process()</td></tr>
+            <tr><td><code>BINARY_DETECTED</code></td><td>File was detected as binary and skipped</td></tr>
+            <tr><td><code>EXTENSION_EXCLUDED</code></td><td>File extension is in the exclusion list</td></tr>
+            <tr><td><code>READ_FAILED</code></td><td>File could not be decoded as text</td></tr>
+            <tr><td><code>FILTER_REJECTED</code></td><td>File was rejected by custom filterFn</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FAQ -->
+      <div class="docs-section" id="faq">
+        <h2>FAQ</h2>
+
+        <h3>Are files uploaded to a server?</h3>
+        <p>No. Everything runs in the browser. Files are read using the browser's <code>FileReader</code> / <code>ArrayBuffer</code> API. Nothing leaves the user's device.</p>
+
+        <h3>What browsers are supported?</h3>
+        <p>All modern browsers: Chrome, Firefox, Safari, Edge, and Chromium-based mobile browsers. IE is not supported.</p>
+
+        <h3>Is there a file size limit?</h3>
+        <p>No hard limit, but very large files (100MB+) may cause the browser tab to slow down since everything runs in memory. For best results, use the <code>filterFn</code> option to skip very large files, or set a reasonable <code>maxChars</code>.</p>
+
+        <h3>Can I use this with React / Vue / Svelte?</h3>
+        <p>Yes. Import the script and use <code>new IIIBatcher()</code> in your component. It's framework-agnostic.</p>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>// React example
+import { useRef } from 'react';
+
+function App() {
+  const inputRef = useRef();
+  const batcher = new IIIBatcher({ labelMode: 'filename' });
+
+  const handleProcess = async () => {
+    const result = await batcher.process(inputRef.current.files);
+    console.log(result.batches);
+  };
+
+  return (
+    &lt;&gt;
+      &lt;input ref={inputRef} type="file" multiple /&gt;
+      &lt;button onClick={handleProcess}&gt;Process&lt;/button&gt;
+    &lt;/&gt;
+  );
+}</pre>
+        </div>
+
+        <h3>Can I style the iFrame embed?</h3>
+        <p>The iFrame content has its own styles. You can only style the iFrame container itself (border, size, etc.). For full control, use the JavaScript API instead of the iFrame.</p>
+
+        <h3>How do I handle clipboard in an iFrame?</h3>
+        <p>Add <code>allow="clipboard-write"</code> to the iFrame tag. Without it, the copy buttons inside the iFrame will fail.</p>
+
+        <h3>What's the output format?</h3>
+        <p>Each batch is a plain text string. Files are separated by two newlines. Each file entry looks like:</p>
+        <div class="docs-code-block">
+          <button class="copy-code-btn" onclick="copyCode(this)">Copy</button>
+          <pre>filename.ext:
+[file contents here]
+
+another-file.js:
+[file contents here]</pre>
+        </div>
+
+        <h3>Can I contribute?</h3>
+        <p>Yes! III is made by <a href="https://github.com/BufferClick" style="color:var(--cyan)" target="_blank">BufferClick</a>. Reach out on GitHub.</p>
+      </div>
+
+    </div>
+
+    <div class="footer">III by <a href="https://github.com/BufferClick" target="_blank">BufferClick</a> — Your files never leave your device.</div>
   </div>
 
   <div class="toast" id="toast">Copied to clipboard</div>
 
-<script>
-  const PRESETS={images:['.png','.jpg','.jpeg','.gif','.svg','.ico','.webp','.bmp','.tiff','.tif'],videos:['.mp4','.mkv','.avi','.mov','.wmv','.flv','.webm'],audio:['.mp3','.wav','.ogg','.flac','.aac','.wma','.m4a'],archives:['.zip','.tar','.gz','.rar','.7z','.bz2','.xz','.zst'],binaries:['.exe','.bin','.dll','.so','.dylib','.apk','.deb','.rpm','.msi','.dmg','.iso'],docs:['.pdf','.doc','.docx','.xls','.xlsx','.ppt','.pptx','.odt','.ods'],fonts:['.ttf','.otf','.woff','.woff2','.eot']};
-
-  let allFiles=[];
-  let lastBatches=[];
-  const excludedExts=new Set();
-  const activePresets=new Set();
-
-  const folderInput=document.getElementById('folderInput');
-  const filesInput=document.getElementById('filesInput');
-  const fileListSection=document.getElementById('fileListSection');
-  const fileListInner=document.getElementById('fileListInner');
-  const fileCountLabel=document.getElementById('fileCountLabel');
-  const clearFilesBtn=document.getElementById('clearFilesBtn');
-  const searchInput=document.getElementById('searchInput');
-  const labelModeEl=document.getElementById('labelMode');
-  const splitModeEl=document.getElementById('splitMode');
-  const splitValueEl=document.getElementById('splitValue');
-  const splitValueRow=document.getElementById('splitValueRow');
-  const splitValueLabel=document.getElementById('splitValueLabel');
-  const splitHintEl=document.getElementById('splitHint');
-  const extInput=document.getElementById('extInput');
-  const extAddBtn=document.getElementById('extAddBtn');
-  const tagListEl=document.getElementById('tagList');
-  const skipBinaryEl=document.getElementById('skipBinary');
-  const showPreviewEl=document.getElementById('showPreview');
-  const includePlaceholderEl=document.getElementById('includePlaceholder');
-  const buildBtn=document.getElementById('buildBtn');
-  const outputSection=document.getElementById('outputSection');
-  const copyAllBtn=document.getElementById('copyAllBtn');
-  const downloadAllBtn=document.getElementById('downloadAllBtn');
-  const batchListEl=document.getElementById('batchList');
-  const toastEl=document.getElementById('toast');
-
-  folderInput.addEventListener('change',()=>mergeFiles(folderInput.files));
-  filesInput.addEventListener('change',()=>mergeFiles(filesInput.files));
-
-  function mergeFiles(nf){
-    const ex=new Set(allFiles.map(f=>getKey(f)));
-    for(const f of Array.from(nf)){const k=getKey(f);if(!ex.has(k)){allFiles.push(f);ex.add(k);}}
-    allFiles.sort((a,b)=>getKey(a).toLowerCase().localeCompare(getKey(b).toLowerCase()));
-    renderFileList();
-  }
-
-  function getKey(f){return f.webkitRelativePath||f.name;}
-
-  clearFilesBtn.addEventListener('click',()=>{allFiles=[];folderInput.value='';filesInput.value='';renderFileList();});
-  searchInput.addEventListener('input',()=>renderFileList());
-
-  function renderFileList(){
-    if(!allFiles.length){fileListSection.style.display='none';return;}
-    fileListSection.style.display='block';
-    fileListInner.innerHTML='';
-    const q=searchInput.value.toLowerCase().trim();
-    let shown=0;
-    for(const file of allFiles){
-      const name=getKey(file);
-      if(q&&!name.toLowerCase().includes(q))continue;
-      const ext=getExt(name);
-      const skip=excludedExts.has(ext);
-      shown++;
-      const d=document.createElement('div');
-      d.className='file-item';
-      d.innerHTML=`<span class="icon icon-sm" style="opacity:0.4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><polyline points="14 2 14 8 20 8"/></svg></span><span class="fname">${esc(name)}</span><span class="fsize">${formatBytes(file.size)}</span><span class="fstatus ${skip?'skip':'ok'}">${skip?'excluded':'ok'}</span>`;
-      fileListInner.appendChild(d);
-    }
-    fileCountLabel.textContent=`${allFiles.length} file${allFiles.length!==1?'s':''}${q?` (${shown} shown)`:''}`;
-  }
-
-  splitModeEl.addEventListener('change',()=>{
-    const m=splitModeEl.value;
-    if(m==='none'){splitValueRow.classList.add('hidden');}
-    else{splitValueRow.classList.remove('hidden');
-      if(m==='chars'){splitValueLabel.textContent='Max characters per batch';splitValueEl.value='50000';splitHintEl.textContent='Files grouped until character limit is reached.';}
-      else{splitValueLabel.textContent='Number of batches';splitValueEl.value='2';splitHintEl.textContent='Files evenly split across the given number.';}
-    }
-  });
-
-  function addExts(raw){
-    let c=false;
-    raw.split(',').forEach(s=>{let e=s.trim().toLowerCase();if(!e)return;if(!e.startsWith('.'))e='.'+e;if(!excludedExts.has(e)){excludedExts.add(e);c=true;}});
-    if(c){renderTags();renderFileList();}
-  }
-
-  function removeExt(ext){excludedExts.delete(ext);renderTags();renderFileList();syncPresetStates();}
-
-  function renderTags(){
-    tagListEl.innerHTML='';
-    const sorted=[...excludedExts].sort();
-    if(!sorted.length){tagListEl.innerHTML='<div class="empty-state">No exclusions — all file types included.</div>';return;}
-    for(const ext of sorted){
-      const s=document.createElement('span');s.className='tag';
-      s.innerHTML=`${esc(ext)} <span class="remove">×</span>`;
-      s.querySelector('.remove').addEventListener('click',()=>removeExt(ext));
-      tagListEl.appendChild(s);
-    }
-  }
-
-  extAddBtn.addEventListener('click',()=>{addExts(extInput.value);extInput.value='';});
-  extInput.addEventListener('keydown',e=>{if(e.key==='Enter'){addExts(extInput.value);extInput.value='';}});
-
-  document.querySelectorAll('.preset-btn').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const key=btn.dataset.preset;
-      if(key==='clear'){excludedExts.clear();activePresets.clear();document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));renderTags();renderFileList();return;}
-      const exts=PRESETS[key];if(!exts)return;
-      if(activePresets.has(key)){activePresets.delete(key);btn.classList.remove('active');exts.forEach(e=>excludedExts.delete(e));}
-      else{activePresets.add(key);btn.classList.add('active');exts.forEach(e=>excludedExts.add(e));}
-      renderTags();renderFileList();
-    });
-  });
-
-  function syncPresetStates(){
-    for(const[key,exts]of Object.entries(PRESETS)){
-      const btn=document.querySelector(`[data-preset="${key}"]`);if(!btn)continue;
-      const all=exts.every(e=>excludedExts.has(e));
-      if(all){activePresets.add(key);btn.classList.add('active');}
-      else{activePresets.delete(key);btn.classList.remove('active');}
-    }
-  }
-
-  renderTags();
-
-  function getExt(n){const i=n.lastIndexOf('.');return i>=0?n.slice(i).toLowerCase():'';}
-  function formatBytes(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB';}
-  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-  function likelyBinary(buf){
-    const bytes=new Uint8Array(buf.slice(0,8192));let s=0;
-    for(let i=0;i<bytes.length;i++){const b=bytes[i];if(b===0)return true;if((b<7||(b>13&&b<32))&&b!==9)s++;}
-    return bytes.length>0&&s/bytes.length>0.15;
-  }
-
-  async function readFile(file){
-    const buf=await file.arrayBuffer();
-    if(likelyBinary(buf))return{ok:false,reason:'binary'};
-    try{return{ok:true,text:new TextDecoder('utf-8',{fatal:false}).decode(buf)};}
-    catch{return{ok:false,reason:'unreadable'};}
-  }
-
-  function buildLabel(i,file,mode){
-    const n=getKey(file);
-    if(mode==='numbered')return`file.${i}:`;
-    if(mode==='filename')return`${n}:`;
-    return`file.${i} — ${n}:`;
-  }
-
-  function splitByChars(entries,max){
-    const batches=[];let cur='';
-    for(const e of entries){const add=cur?'\n\n'+e:e;if(cur&&cur.length+add.length>max){batches.push(cur);cur=e;}else{cur+=add;}}
-    if(cur)batches.push(cur);return batches;
-  }
-
-  function splitByCount(entries,count){
-    if(count<=1)return[entries.join('\n\n')];
-    const size=Math.ceil(entries.length/count);const batches=[];
-    for(let i=0;i<entries.length;i+=size)batches.push(entries.slice(i,i+size).join('\n\n'));
-    return batches;
-  }
-
-  async function copyText(text){try{await navigator.clipboard.writeText(text);return true;}catch{return false;}}
-
-  function showToast(msg){toastEl.textContent=msg;toastEl.classList.add('show');setTimeout(()=>toastEl.classList.remove('show'),2200);}
-
-  function downloadTxt(text,filename){
-    const blob=new Blob([text],{type:'text/plain'});const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);
-  }
-
-  function highlightBatch(raw){
-    const lines=raw.split('\n');const hl=[];
-    const re=/^(file\.\d+(?:\s*—\s*.+)?:|.+\.\w+:)$/;
-    for(const line of lines){
-      if(re.test(line.trim()))hl.push(`<span class="line-file-label">${esc(line)}</span>`);
-      else if(line.trim()==='')hl.push('');
-      else if(line.trim().startsWith('[Skipped')||line.trim().startsWith('[Excluded'))hl.push(`<span class="syn-skipped">${esc(line)}</span>`);
-      else hl.push(highlightLine(line));
-    }
-    return hl.join('\n');
-  }
-
-  function highlightLine(line){
-    let o=esc(line);
-    o=o.replace(/(\/\/.*)$/gm,'<span class="syn-comment">$1</span>');
-    o=o.replace(/(#.*)$/gm,'<span class="syn-comment">$1</span>');
-    o=o.replace(/(&lt;!--.+?--&gt;)/g,'<span class="syn-comment">$1</span>');
-    o=o.replace(/("(?:[^"\\]|\\.)*?")/g,'<span class="syn-string">$1</span>');
-    o=o.replace(/('(?:[^'\\]|\\.)*?')/g,'<span class="syn-string">$1</span>');
-    o=o.replace(/(`(?:[^`\\]|\\.)*?`)/g,'<span class="syn-string">$1</span>');
-    o=o.replace(/\b(\d+\.?\d*)\b/g,'<span class="syn-number">$1</span>');
-    const kw=['function','const','let','var','return','if','else','for','while','do','switch','case','break','continue','class','extends','import','export','from','default','new','this','super','try','catch','finally','throw','async','await','yield','of','in','typeof','instanceof','void','delete','true','false','null','undefined','def','print','self','elif','except','lambda','with','as','pass','raise','None','True','False','and','or','not','is','int','str','float','list','dict','set','tuple'];
-    for(const k of kw){o=o.replace(new RegExp(`\\b(${k})\\b`,'g'),'<span class="syn-keyword">$1</span>');}
-    o=o.replace(/(&lt;\/?)([\w-]+)/g,'<span class="syn-tag">$1$2</span>');
-    o=o.replace(/\b([a-zA-Z_]\w*)\s*\(/g,'<span class="syn-func">$1</span>(');
-    o=o.replace(/(===|!==|==|!=|&lt;=|&gt;=|=&gt;|\+\+|--|\|\||&amp;&amp;)/g,'<span class="syn-operator">$1</span>');
-    o=o.replace(/([{}()\[\]])/g,'<span class="syn-bracket">$1</span>');
-    return o;
-  }
-
-  buildBtn.addEventListener('click',async()=>{
-    if(!allFiles.length){showToast('Select files first');return;}
-    buildBtn.innerHTML='<span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span> Processing...';
-    buildBtn.disabled=true;
-    await new Promise(r=>setTimeout(r,50));
-
-    const labelMode=labelModeEl.value;
-    const splitMode=splitModeEl.value;
-    const splitValue=parseInt(splitValueEl.value||'1',10);
-    const skipBinary=skipBinaryEl.checked;
-    const includePlaceholder=includePlaceholderEl.checked;
-    const showPreview=showPreviewEl.checked;
-
-    const sorted=[...allFiles].sort((a,b)=>getKey(a).toLowerCase().localeCompare(getKey(b).toLowerCase()));
-
-    const entries=[];let included=0,skipped=0,idx=1;
-
-    for(const file of sorted){
-      const name=getKey(file);const ext=getExt(name);
-      if(excludedExts.has(ext)){if(includePlaceholder){entries.push(`${buildLabel(idx,file,labelMode)}\n[Excluded: ${name}]`);idx++;}skipped++;continue;}
-      const result=await readFile(file);
-      if(!result.ok){
-        if(skipBinary){if(includePlaceholder){entries.push(`${buildLabel(idx,file,labelMode)}\n[Skipped (${result.reason}): ${name}]`);idx++;}skipped++;}
-        else{entries.push(`${buildLabel(idx,file,labelMode)}\n[${result.reason}: ${name}]`);idx++;included++;}
-        continue;
-      }
-      entries.push(`${buildLabel(idx,file,labelMode)}\n${result.text}`);idx++;included++;
-    }
-
-    let batches;
-    if(splitMode==='none')batches=entries.length?[entries.join('\n\n')]:[];
-    else if(splitMode==='count')batches=splitByCount(entries,Math.max(1,splitValue));
-    else batches=splitByChars(entries,Math.max(1,splitValue));
-
-    lastBatches=batches;
-    document.getElementById('statFiles').textContent=included;
-    document.getElementById('statSkipped').textContent=skipped;
-    document.getElementById('statBatches').textContent=batches.length;
-    outputSection.classList.remove('hidden');
-    batchListEl.innerHTML='';
-
-    batches.forEach((batch,i)=>{
-      const lines=batch.split('\n').length;
-      const card=document.createElement('div');card.className='batch-card';
-      let preview='';
-      if(showPreview){preview=`<div class="code-view"><pre>${highlightBatch(batch)}</pre><textarea class="hidden-textarea">${esc(batch)}</textarea></div>`;}
-      card.innerHTML=`
-        <div class="batch-top">
-          <div><div class="batch-title">Batch ${i+1}</div><div class="batch-meta">${batch.length.toLocaleString()} chars · ${lines.toLocaleString()} lines</div></div>
-          <span class="batch-number">${i+1} / ${batches.length}</span>
-        </div>
-        ${preview}
-        <div class="btn-row">
-          <button class="btn btn-primary btn-sm copy-btn"><span class="icon icon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>Copy</button>
-          <button class="btn btn-outline btn-sm dl-btn"><span class="icon icon-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg></span>Download</button>
-        </div>`;
-
-      if(showPreview){card.querySelector('.hidden-textarea').value=batch;}
-
-      card.querySelector('.copy-btn').addEventListener('click',async()=>{
-        const ok=await copyText(batch);
-        if(ok)showToast(`Batch ${i+1} copied`);
-        else{
-          if(showPreview){const ta=card.querySelector('.hidden-textarea');ta.style.cssText='position:static;width:100%;height:200px;opacity:1;margin-top:10px;background:#050507;color:#fafafa;border:1px solid #27272a;border-radius:8px;padding:12px;font-family:monospace;font-size:12px;';ta.focus();ta.select();showToast('Selected — copy manually');}
-          else showToast('Clipboard unavailable');
-        }
-      });
-
-      card.querySelector('.dl-btn').addEventListener('click',()=>downloadTxt(batch,`batch_${i+1}.txt`));
-      batchListEl.appendChild(card);
-    });
-
-    buildBtn.innerHTML='<span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> Build Batches';
-    buildBtn.disabled=false;
-    outputSection.scrollIntoView({behavior:'smooth'});
-  });
-
-  copyAllBtn.addEventListener('click',async()=>{
-    if(!lastBatches.length)return;
-    const ok=await copyText(lastBatches.join('\n\n'));
-    if(ok)showToast('All batches copied');else showToast('Clipboard unavailable');
-  });
-
-  downloadAllBtn.addEventListener('click',()=>{
-    if(!lastBatches.length)return;
-    if(lastBatches.length===1)downloadTxt(lastBatches[0],'all_batches.txt');
-    else lastBatches.forEach((b,i)=>downloadTxt(b,`batch_${i+1}.txt`));
-  });
-</script>
+  <script src="/main.js"></script>
 </body>
 </html>
